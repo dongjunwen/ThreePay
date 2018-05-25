@@ -19,6 +19,7 @@ public enum ResultCode {
     COMMON_RULE_ERROR("1006", "规则校验失败"),
     COMMON_DULIICATE_SUBMIT("1007", "重复提交"),
     COMMON_AUDIT_STAUS_ERROR("1008","不符合申请条件"),
+    SERVICE_NOT_EXISTS("1009","服务不存在"),
 
     //基础资料 1100-1199
     USER_PASS_NOT_EQUAL("1100","两次密码不一致"),

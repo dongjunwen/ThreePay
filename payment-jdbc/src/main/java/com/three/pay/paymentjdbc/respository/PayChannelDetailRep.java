@@ -1,6 +1,6 @@
 package com.three.pay.paymentjdbc.respository;
 
-import com.three.pay.paymentjdbc.entity.PayChannelDetail;
+import com.three.pay.paymentjdbc.entity.ChannelDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -9,6 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Descripton:
  * @Modify :
  **/
-public interface PayChannelDetailRep extends JpaRepository<PayChannelDetail,Long> {
+public interface PayChannelDetailRep extends JpaRepository<ChannelDetail,Long> {
 
 }

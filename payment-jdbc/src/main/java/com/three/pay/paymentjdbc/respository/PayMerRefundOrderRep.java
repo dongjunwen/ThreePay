@@ -1,6 +1,6 @@
 package com.three.pay.paymentjdbc.respository;
 
-import com.three.pay.paymentjdbc.entity.PayMerRefundOrder;
+import com.three.pay.paymentjdbc.entity.MerRefundOrder;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -9,6 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Descripton:
  * @Modify :
  **/
-public interface PayMerRefundOrderRep extends JpaRepository<PayMerRefundOrder,Long> {
+public interface PayMerRefundOrderRep extends JpaRepository<MerRefundOrder,Long> {
 
 }

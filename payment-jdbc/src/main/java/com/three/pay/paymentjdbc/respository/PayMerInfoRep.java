@@ -1,7 +1,6 @@
 package com.three.pay.paymentjdbc.respository;
 
-import com.three.pay.paymentjdbc.entity.PayMerChannel;
-import com.three.pay.paymentjdbc.entity.PayMerInfo;
+import com.three.pay.paymentjdbc.entity.MerInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -10,6 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Descripton:
  * @Modify :
  **/
-public interface PayMerInfoRep extends JpaRepository<PayMerInfo,Long> {
+public interface PayMerInfoRep extends JpaRepository<MerInfo,Long> {
 
 }
