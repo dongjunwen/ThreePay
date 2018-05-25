@@ -3,23 +3,32 @@ package com.three.pay.paymentjdbc.entity;
 
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+
 @Entity
 @Component
+@Table(name = "pay_dict")
 public class PayDict {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
+  @Column(name = "dict_code")
   private String dictCode;
+  @Column(name = "dict_value")
   private String dictValue;
+  @Column(name = "dict_name")
   private String dictName;
+  @Column(name = "dict_desc")
   private String dictDesc;
+  @Column(name = "pdict_code")
   private String pdictCode;
+  @Column(name = "status")
   private String status;
+  @Column(name = "memo")
   private String memo;
+  @Column(name = "create_time")
   private java.sql.Timestamp createTime;
+  @Column(name = "modi_time")
   private java.sql.Timestamp modiTime;
 
 

@@ -31,4 +31,11 @@ public class PayController {
         PayResult<Integer> payResults=iPayMerPayOrderService.createOrder(payMerPayOrderVo);
         return payResults;
     }
+
+    @RequestMapping("/createOrder1")
+    public PayResult<Integer> createOrder(){
+        logger.info("【三人行支付】收单开始...");
+        PayResult<Integer> payResults=iPayMerPayOrderService.createOrder(null);
+        return payResults;
+    }
 }

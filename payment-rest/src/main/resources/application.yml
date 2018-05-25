@@ -8,7 +8,7 @@ spring:
     password: root
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     show-sql: true
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss

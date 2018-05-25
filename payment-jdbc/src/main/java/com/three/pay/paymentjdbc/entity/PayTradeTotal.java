@@ -2,26 +2,37 @@ package com.three.pay.paymentjdbc.entity;
 
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Component
+@Table(name = "pay_trade_total")
 public class PayTradeTotal {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy =  GenerationType.IDENTITY)
   private long id;
+  @Column(name = "trade_no")
   private String tradeNo;
+  @Column(name = "trade_time")
   private java.sql.Timestamp tradeTime;
+  @Column(name = "mer_no")
   private String merNo;
+  @Column(name = "mer_name")
   private String merName;
+  @Column(name="user_no")
   private String userNo;
+  @Column(name = "trade_type")
   private long tradeType;
-  private double tradeAmt;
-  private double actTradeAmt;
+  @Column(name = "trade_amt")
+  private BigDecimal tradeAmt;
+  @Column(name = "act_trade_amt")
+  private BigDecimal actTradeAmt;
+  @Column(name = "trade_status")
   private String tradeStatus;
+  @Column(name = "create_time")
   private java.sql.Timestamp createTime;
+  @Column(name = "modi_time")
   private java.sql.Timestamp modiTime;
 
 
@@ -88,23 +99,21 @@ public class PayTradeTotal {
   }
 
 
-  public double getTradeAmt() {
+  public BigDecimal getTradeAmt() {
     return tradeAmt;
   }
 
-  public void setTradeAmt(double tradeAmt) {
+  public void setTradeAmt(BigDecimal tradeAmt) {
     this.tradeAmt = tradeAmt;
   }
 
-
-  public double getActTradeAmt() {
+  public BigDecimal getActTradeAmt() {
     return actTradeAmt;
   }
 
-  public void setActTradeAmt(double actTradeAmt) {
+  public void setActTradeAmt(BigDecimal actTradeAmt) {
     this.actTradeAmt = actTradeAmt;
   }
-
 
   public String getTradeStatus() {
     return tradeStatus;

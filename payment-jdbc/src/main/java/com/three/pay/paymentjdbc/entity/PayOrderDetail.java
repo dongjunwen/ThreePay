@@ -2,48 +2,81 @@ package com.three.pay.paymentjdbc.entity;
 
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Component
+@Table(name = "pay_order_detail")
 public class PayOrderDetail {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
+  @Column(name = "trade_no")
   private String tradeNo;
+  @Column(name = "pay_time")
   private java.sql.Timestamp payTime;
+  @Column(name = "pay_seq_no")
   private String paySeqNo;
+  @Column(name = "pay_way")
   private String payWay;
+  @Column(name = "pay_status")
   private long payStatus;
+  @Column(name = "pay_success_time")
   private java.sql.Timestamp paySuccessTime;
-  private double refundOnwayAmt;
-  private double refundSuccessAmt;
-  private double payAmt;
+  @Column(name = "refund_onway_amt")
+  private BigDecimal refundOnwayAmt;
+  @Column(name = "refund_success_amt")
+  private BigDecimal refundSuccessAmt;
+  @Column(name = "pay_amt")
+  private BigDecimal payAmt;
+  @Column(name = "user_no")
   private String userNo;
+  @Column(name = "mer_no")
   private String merNo;
+  @Column(name = "mer_name")
   private String merName;
+  @Column(name = "channel_code")
   private String channelCode;
+  @Column(name = "channel_name")
   private String channelName;
+  @Column(name = "channel_partener_no")
   private String channelPartenerNo;
+  @Column(name = "channel_patener_name")
   private String channelPatenerName;
+  @Column(name = "goods_name")
   private String goodsName;
+  @Column(name = "goods_desc")
   private String goodsDesc;
+  @Column(name = "currency_type")
   private String currencyType;
+  @Column(name = "pay_fee")
   private double payFee;
+  @Column(name = "start_time")
   private java.sql.Timestamp startTime;
+  @Column(name = "end_time")
   private java.sql.Timestamp endTime;
+  @Column(name = "payler_acct")
   private String paylerAcct;
+  @Column(name = "seller_acct")
   private String sellerAcct;
+  @Column(name = "equip_type")
   private String equipType;
+  @Column(name = "equip_no")
   private String equipNo;
+  @Column(name = "equip_ip")
   private String equipIp;
+  @Column(name = "once_str")
   private String onceStr;
+  @Column(name = "forward_url")
   private String forwardUrl;
+  @Column(name = "resp_pay_no")
   private String respPayNo;
+  @Column(name = "version")
   private long version;
+  @Column(name = "create_time")
   private java.sql.Timestamp createTime;
+  @Column(name = "modi_time")
   private java.sql.Timestamp modiTime;
 
 
@@ -110,32 +143,29 @@ public class PayOrderDetail {
   }
 
 
-  public double getRefundOnwayAmt() {
+  public BigDecimal getRefundOnwayAmt() {
     return refundOnwayAmt;
   }
 
-  public void setRefundOnwayAmt(double refundOnwayAmt) {
+  public void setRefundOnwayAmt(BigDecimal refundOnwayAmt) {
     this.refundOnwayAmt = refundOnwayAmt;
   }
 
-
-  public double getRefundSuccessAmt() {
+  public BigDecimal getRefundSuccessAmt() {
     return refundSuccessAmt;
   }
 
-  public void setRefundSuccessAmt(double refundSuccessAmt) {
+  public void setRefundSuccessAmt(BigDecimal refundSuccessAmt) {
     this.refundSuccessAmt = refundSuccessAmt;
   }
 
-
-  public double getPayAmt() {
+  public BigDecimal getPayAmt() {
     return payAmt;
   }
 
-  public void setPayAmt(double payAmt) {
+  public void setPayAmt(BigDecimal payAmt) {
     this.payAmt = payAmt;
   }
-
 
   public String getUserNo() {
     return userNo;

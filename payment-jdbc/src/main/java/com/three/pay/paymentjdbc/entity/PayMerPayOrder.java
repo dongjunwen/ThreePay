@@ -1,30 +1,45 @@
 package com.three.pay.paymentjdbc.entity;
 
+import org.springframework.boot.autoconfigure.web.ResourceProperties;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Component
+@Table(name = "pay_mer_pay_order")
 public class PayMerPayOrder {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
+  @Column(name = "pay_no")
   private String payNo;
+  @Column(name = "pay_time")
   private java.sql.Timestamp payTime;
+  @Column(name = "trade_no")
   private String tradeNo;
+  @Column(name = "mer_no")
   private String merNo;
+  @Column(name = "mer_name")
   private String merName;
+  @Column(name = "mer_order_no")
   private String merOrderNo;
+  @Column(name = "mer_pay_seq")
   private String merPaySeq;
+  @Column(name = "user_no")
   private String userNo;
+  @Column(name = "pay_way")
   private String payWay;
+  @Column(name = "pay_status")
   private long payStatus;
-  private double payAmt;
-  private double refundAmt;
+  @Column(name = "pay_amt")
+  private BigDecimal payAmt;
+  @Column(name = "refund_amt")
+  private BigDecimal refundAmt;
+  @Column(name = "create_time")
   private java.sql.Timestamp createTime;
+  @Column(name = "modi_time")
   private java.sql.Timestamp modiTime;
 
 
@@ -126,24 +141,21 @@ public class PayMerPayOrder {
     this.payStatus = payStatus;
   }
 
-
-  public double getPayAmt() {
+  public BigDecimal getPayAmt() {
     return payAmt;
   }
 
-  public void setPayAmt(double payAmt) {
+  public void setPayAmt(BigDecimal payAmt) {
     this.payAmt = payAmt;
   }
 
-
-  public double getRefundAmt() {
+  public BigDecimal getRefundAmt() {
     return refundAmt;
   }
 
-  public void setRefundAmt(double refundAmt) {
+  public void setRefundAmt(BigDecimal refundAmt) {
     this.refundAmt = refundAmt;
   }
-
 
   public java.sql.Timestamp getCreateTime() {
     return createTime;
