@@ -32,11 +32,11 @@ import java.util.*;
 public class PoolingHttpClientService {
 
     private static final Logger logger = LoggerFactory.getLogger(PoolingHttpClientService.class);
-    @Value("connectionRequestTimeout")
+    @Value("${httpConfig.connectionRequestTimeout}")
     private int connectionRequestTimeout;
-    @Value("connectTimeout")
+    @Value("${httpConfig.connectTimeout}")
     private int connectTimeout;
-    @Value("connectTimeout")
+    @Value("${httpConfig.connectTimeout}")
     private int socketTimeout;
 
     private PoolingHttpClientConnectionManager httpClientManager;

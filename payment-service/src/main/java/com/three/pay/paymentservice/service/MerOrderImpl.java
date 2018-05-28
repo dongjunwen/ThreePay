@@ -40,7 +40,7 @@ public class MerOrderImpl implements ITradeProcess {
     @Autowired
     IChannelDetail ichannelDetail;
     @Autowired
-    IChannelService channelProcess;
+    IChannelService iChannelService;
     @Autowired
     IOrderCenter iOrderCenter;
 
@@ -64,7 +64,7 @@ public class MerOrderImpl implements ITradeProcess {
             iOrderCenter.createOrder(merOrderDto,commonReqVo,merOrderPo);
 
             //4.执行渠道层动作
-            ChannelRespParam channelRespParam=channelProcess.channelProcess(merOrderDto,commonReqVo);
+            ChannelRespParam channelRespParam=iChannelService.channelProcess(merOrderDto,commonReqVo);
 
             //5.修改数据
 

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
  * @Modify :
  **/
 @Service
-public class ChannelService implements IChannelInfo {
+public class ChannelnfoService implements IChannelInfo {
     @Autowired
     ChannelInfoRep channelInfoRep;
     @Override
