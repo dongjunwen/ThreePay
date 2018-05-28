@@ -1,6 +1,6 @@
 package com.three.pay.paymentjdbc.respository;
 
-import com.three.pay.paymentjdbc.entity.MerInfo;
+import com.three.pay.paymentjdbc.entity.ProductInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Descripton:
  * @Modify :
  **/
-public interface PayMerInfoRep extends JpaRepository<MerInfo,Long> {
+public interface ProductInfoRep extends JpaRepository<ProductInfo,Long> {
 
+    ProductInfo findByProdctNo(String productNo);
 }

@@ -5,6 +5,7 @@ import com.three.pay.paymentapi.enums.ResultCode;
 import com.three.pay.paymentapi.enums.ServiceNameEnum;
 import com.three.pay.paymentapi.result.PayResult;
 import com.three.pay.paymentapi.vo.CommonReqParam;
+import com.three.pay.paymentrest.utils.ValidatorUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,8 @@ public class TradeController {
         try {
             //1.参数统一校验
             ValidatorUtil.validateEntity(commonReqVo);
+            //todo 参数数据校验
+
             if(iTradeProcessList==null || iTradeProcessList.size()==0){
                 payResult.setErrorCode(ResultCode.SERVICE_NOT_EXISTS);
             }

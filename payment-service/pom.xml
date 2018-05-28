@@ -49,8 +49,13 @@
 			<artifactId>payment-jdbc</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
+        <dependency>
+            <groupId>com.three.pay</groupId>
+            <artifactId>payment-channel</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 
 
-	</dependencies>
+    </dependencies>
 
 </project>

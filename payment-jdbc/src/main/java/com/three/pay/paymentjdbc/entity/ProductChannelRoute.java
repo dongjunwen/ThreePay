@@ -3,6 +3,8 @@ package com.three.pay.paymentjdbc.entity;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 @Entity
 @Component
@@ -11,22 +13,28 @@ public class ProductChannelRoute {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
+  @Column(name = "mer_no")
+  private String merNo;
   @Column(name = "product_no")
   private String productNo;
+  @Column(name = "mer_fee")
+  private BigDecimal merFee;
   @Column(name = "pay_way")
   private String payWay;
   @Column(name = "useLevel")
   private long useLevel;
   @Column(name = "status")
   private String status;
+  @Column(name = "channel_partener_no")
+  private String channelPartenerNo;
+  @Column(name = "channel_partener_name")
+  private String channelPartenrName;
   @Column(name = "version")
   private long version;
   @Column(name = "create_time")
   private java.sql.Timestamp createTime;
   @Column(name = "modi_time")
   private java.sql.Timestamp modiTime;
-
-
 
   public long getId() {
     return id;
@@ -36,6 +44,13 @@ public class ProductChannelRoute {
     this.id = id;
   }
 
+  public String getMerNo() {
+    return merNo;
+  }
+
+  public void setMerNo(String merNo) {
+    this.merNo = merNo;
+  }
 
   public String getProductNo() {
     return productNo;
@@ -45,6 +60,13 @@ public class ProductChannelRoute {
     this.productNo = productNo;
   }
 
+  public BigDecimal getMerFee() {
+    return merFee;
+  }
+
+  public void setMerFee(BigDecimal merFee) {
+    this.merFee = merFee;
+  }
 
   public String getPayWay() {
     return payWay;
@@ -54,6 +76,13 @@ public class ProductChannelRoute {
     this.payWay = payWay;
   }
 
+  public long getUseLevel() {
+    return useLevel;
+  }
+
+  public void setUseLevel(long useLevel) {
+    this.useLevel = useLevel;
+  }
 
   public String getStatus() {
     return status;
@@ -63,15 +92,21 @@ public class ProductChannelRoute {
     this.status = status;
   }
 
-
-  public long getUseLevel() {
-    return useLevel;
+  public String getChannelPartenerNo() {
+    return channelPartenerNo;
   }
 
-  public void setUseLevel(long useLevel) {
-    this.useLevel = useLevel;
+  public void setChannelPartenerNo(String channelPartenerNo) {
+    this.channelPartenerNo = channelPartenerNo;
   }
 
+  public String getChannelPartenrName() {
+    return channelPartenrName;
+  }
+
+  public void setChannelPartenrName(String channelPartenrName) {
+    this.channelPartenrName = channelPartenrName;
+  }
 
   public long getVersion() {
     return version;
@@ -81,22 +116,19 @@ public class ProductChannelRoute {
     this.version = version;
   }
 
-
-  public java.sql.Timestamp getCreateTime() {
+  public Timestamp getCreateTime() {
     return createTime;
   }
 
-  public void setCreateTime(java.sql.Timestamp createTime) {
+  public void setCreateTime(Timestamp createTime) {
     this.createTime = createTime;
   }
 
-
-  public java.sql.Timestamp getModiTime() {
+  public Timestamp getModiTime() {
     return modiTime;
   }
 
-  public void setModiTime(java.sql.Timestamp modiTime) {
+  public void setModiTime(Timestamp modiTime) {
     this.modiTime = modiTime;
   }
-
 }

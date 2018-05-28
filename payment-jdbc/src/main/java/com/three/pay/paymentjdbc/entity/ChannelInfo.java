@@ -2,6 +2,7 @@ package com.three.pay.paymentjdbc.entity;
 
 import org.springframework.stereotype.Component;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,11 +13,17 @@ public class ChannelInfo {
   @Id
   @GeneratedValue
   private long id;
+  @Column(name = "channel_code")
   private String channelCode;
+  @Column(name = "channel_name")
   private String channelName;
+  @Column(name = "status")
   private String status;
+  @Column(name = "version")
   private long version;
+  @Column(name = "create_time")
   private java.sql.Timestamp createTime;
+  @Column(name = "modi_time")
   private java.sql.Timestamp modiTime;
 
 

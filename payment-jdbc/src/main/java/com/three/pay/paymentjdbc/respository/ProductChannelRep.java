@@ -1,6 +1,6 @@
 package com.three.pay.paymentjdbc.respository;
 
-import com.three.pay.paymentjdbc.entity.MerChannel;
+import com.three.pay.paymentjdbc.entity.ProductChannelRoute;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -9,6 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Descripton:
  * @Modify :
  **/
-public interface PayMerChannelRep extends JpaRepository<MerChannel,Long> {
+public interface ProductChannelRep extends JpaRepository<ProductChannelRoute,Long> {
 
 }

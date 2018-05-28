@@ -3,6 +3,7 @@ package com.three.pay.paymentjdbc.entity;
 
 import org.springframework.stereotype.Component;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,7 +13,9 @@ public class MerChannel {
   @Id
   @GeneratedValue
   private long id;
+  @Column(name = "mer_no")
   private String merNo;
+  @Column(name = "pay_way")
   private String payWay;
   private String status;
   private long version;

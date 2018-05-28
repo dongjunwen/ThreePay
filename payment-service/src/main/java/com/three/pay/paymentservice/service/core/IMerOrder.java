@@ -6,5 +6,5 @@ package com.three.pay.paymentservice.service.core;
  * @Descripton:
  * @Modify :
  **/
-public interface IPayDictService {
+public interface IMerOrder {
 }

@@ -2,21 +2,24 @@ package com.three.pay.paymentjdbc.entity;
 
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Component
+@Table(name = "mer_info")
 public class MerInfo {
   @Id
   @GeneratedValue
   private long id;
+  @Column(name = "mer_no")
   private String merNo;
+  @Column(name = "mer_name")
   private String merName;
   private String status;
   private long version;
+  @Column(name = "create_time")
   private java.sql.Timestamp createTime;
+  @Column(name = "modi_time")
   private java.sql.Timestamp modiTime;
 
 

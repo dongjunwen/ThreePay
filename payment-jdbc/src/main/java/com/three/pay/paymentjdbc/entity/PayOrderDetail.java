@@ -51,7 +51,7 @@ public class PayOrderDetail {
   @Column(name = "currency_type")
   private String currencyType;
   @Column(name = "pay_fee")
-  private double payFee;
+  private BigDecimal payFee;
   @Column(name = "start_time")
   private java.sql.Timestamp startTime;
   @Column(name = "end_time")
@@ -257,11 +257,11 @@ public class PayOrderDetail {
   }
 
 
-  public double getPayFee() {
+  public BigDecimal getPayFee() {
     return payFee;
   }
 
-  public void setPayFee(double payFee) {
+  public void setPayFee(BigDecimal payFee) {
     this.payFee = payFee;
   }
 

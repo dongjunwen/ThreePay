@@ -19,11 +19,15 @@ public enum ResultCode {
     COMMON_RULE_ERROR("1006", "规则校验失败"),
     COMMON_DULIICATE_SUBMIT("1007", "重复提交"),
     COMMON_AUDIT_STAUS_ERROR("1008","不符合申请条件"),
-    SERVICE_NOT_EXISTS("1009","服务不存在"),
 
     //基础资料 1100-1199
-    USER_PASS_NOT_EQUAL("1100","两次密码不一致"),
-    USER_OLD_PASS_ERROR("1101","原始密码错误"),
+    SERVICE_NOT_EXISTS("1100","服务不存在"),
+    PRODUCT_NOT_VALID("1101","产品无效"),
+    MER_NOT_VALID("1102","商户不合法"),
+    MER_PRODUCT_NOT_VALID("1103","商户对应的产品无效"),
+    PRODUCT_CHANNEL_NOT_EXISTS("1104","产品渠道不存在"),
+    CHANNELDETAIL_NOT_VALID("1105","渠道详情无效"),
+    CHANNEL_NOT_VALID("1106","渠道无效"),
 
 
 

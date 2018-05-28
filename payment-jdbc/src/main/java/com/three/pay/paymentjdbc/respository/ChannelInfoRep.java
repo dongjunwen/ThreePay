@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Descripton:
  * @Modify :
  **/
-public interface PayChannelInfoRep extends JpaRepository<ChannelInfo,Long> {
+public interface ChannelInfoRep extends JpaRepository<ChannelInfo,Long> {
 
+    ChannelInfo findByChannelCode(String channelCode);
 }

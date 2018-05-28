@@ -13,3 +13,7 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: UTC
+#http config
+connectionRequestTimeout : 3000
+connectTimeout : 3000
+socketTimeout : 5000

@@ -23,6 +23,7 @@
       <module>payment-api</module>
       <module>payment-common</module>
       <module>payment-jdbc</module>
+      <module>payment-channel</module>
       <module>payment-service</module>
       <module>payment-web</module>
       <module>payment-rest</module>

@@ -2,9 +2,11 @@ package com.three.pay.paymentjdbc.entity;
 
 import org.springframework.stereotype.Component;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.math.BigDecimal;
 
 @Entity
 @Component
@@ -13,18 +15,29 @@ public class ChannelDetail {
   @Id
   @GeneratedValue
   private long id;
+  @Column(name = "pay_way")
   private String payWay;
+  @Column(name = "pay_way_name")
   private String payWayName;
+  @Column(name = "channel_code")
   private String channelCode;
+  @Column(name = "sign_type")
   private String signType;
+  @Column(name = "pub_key")
   private String pubKey;
+  @Column(name = "priv_key")
   private String privKey;
+  @Column(name = "resv_key")
   private String resvKey;
   private String resv1;
   private String resv2;
   private String status;
+  @Column(name = "channel_fee")
+  private BigDecimal channelFee;
   private long version;
+  @Column(name = "create_time")
   private java.sql.Timestamp createTime;
+  @Column(name = "modi_time")
   private java.sql.Timestamp modiTime;
 
 
@@ -153,4 +166,11 @@ public class ChannelDetail {
     this.modiTime = modiTime;
   }
 
+  public BigDecimal getChannelFee() {
+    return channelFee;
+  }
+
+  public void setChannelFee(BigDecimal channelFee) {
+    this.channelFee = channelFee;
+  }
 }
