@@ -11,5 +11,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  **/
 public interface ProductInfoRep extends JpaRepository<ProductInfo,Long> {
 
-    ProductInfo findByProdctNo(String productNo);
+    ProductInfo findByProductNo(String productNo);
 }

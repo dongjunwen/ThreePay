@@ -4,6 +4,7 @@ import com.three.pay.paymentjdbc.entity.ChannelInfo;
 import com.three.pay.paymentjdbc.respository.ChannelInfoRep;
 import com.three.pay.paymentservice.service.core.IChannelInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * @Author:luiz
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @Descripton:
  * @Modify :
  **/
+@Service
 public class ChannelService implements IChannelInfo {
     @Autowired
     ChannelInfoRep channelInfoRep;

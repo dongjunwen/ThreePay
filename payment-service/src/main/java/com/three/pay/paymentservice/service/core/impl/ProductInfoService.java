@@ -18,6 +18,6 @@ public class ProductInfoService implements IProductInfo {
     ProductInfoRep productInfoRep;
     @Override
     public ProductInfo findByProductNo(String productNo) {
-        return productInfoRep.findByProdctNo(productNo);
+        return productInfoRep.findByProductNo(productNo);
     }
 }

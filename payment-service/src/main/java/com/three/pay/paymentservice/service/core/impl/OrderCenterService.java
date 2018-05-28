@@ -17,6 +17,7 @@ import com.three.pay.paymentjdbc.respository.PayTradeTotalRep;
 import com.three.pay.paymentservice.service.core.IMerOrderDetail;
 import com.three.pay.paymentservice.service.core.IOrderCenter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
@@ -29,6 +30,7 @@ import java.util.List;
  * @Descripton:
  * @Modify :
  **/
+@Service
 public class OrderCenterService implements IOrderCenter {
     @Autowired
     MerOrderRep merOrderRep;
