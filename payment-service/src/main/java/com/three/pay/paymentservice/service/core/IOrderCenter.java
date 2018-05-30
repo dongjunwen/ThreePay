@@ -2,7 +2,10 @@ package com.three.pay.paymentservice.service.core;
 
 import com.three.pay.paymentapi.vo.CommonReqParam;
 import com.three.pay.paymentcommon.dto.MerOrderDto;
-import com.three.pay.paymentcommon.po.MerOrderPo; /**
+import com.three.pay.paymentcommon.po.MerOrderPo;
+import com.three.pay.paymentcommon.po.notify.NotifyPayParamPo;
+
+/**
  * @Author:luiz
  * @Date: 2018/5/28 15:18
  * @Descripton:
@@ -10,4 +13,6 @@ import com.three.pay.paymentcommon.po.MerOrderPo; /**
  **/
 public interface IOrderCenter {
     void createOrder(MerOrderDto merOrderDto, CommonReqParam commonReqVo, MerOrderPo merOrderPo);
+
+    void notifyOrder(NotifyPayParamPo notifyPayParamPo);
 }

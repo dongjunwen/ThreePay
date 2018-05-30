@@ -9,8 +9,8 @@ package com.three.pay.paymentcommon.enums;
 public enum PayStatusEnum {
     PAY_INIT(0,"支付中"),
     PAY_SUCCESS(1,"支付成功"),
-    PAY_FAIL(2,"支付成功"),
-    PAY_CLOASE(3,"支付成功"),
+    PAY_FAIL(2,"支付失败"),
+    PAY_CLOSE(3,"支付关闭"),
     ;
 
     private int code;

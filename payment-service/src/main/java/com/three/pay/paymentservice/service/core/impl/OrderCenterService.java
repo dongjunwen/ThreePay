@@ -7,6 +7,7 @@ import com.three.pay.paymentcommon.enums.TradeStatusEnum;
 import com.three.pay.paymentcommon.enums.TradeTypeEnum;
 import com.three.pay.paymentcommon.po.MerOrderPo;
 import com.three.pay.paymentcommon.po.MerPaySeqPo;
+import com.three.pay.paymentcommon.po.notify.NotifyPayParamPo;
 import com.three.pay.paymentcommon.utils.IDUtils;
 import com.three.pay.paymentjdbc.entity.MerOrder;
 import com.three.pay.paymentjdbc.entity.PayOrderDetail;
@@ -115,8 +116,39 @@ public class OrderCenterService implements IOrderCenter {
         //payOrderDetail.setForwardUrl(merOrderPo.get);
         payOrderDetail.setCreateTime(new java.sql.Timestamp(nowDate.getTime()));
         payOrderDetail.setModiTime(new java.sql.Timestamp(nowDate.getTime()));
-        payOrderDetailRep.save(payOrderDetail);
+        payOrderDetailRep.saveAndFlush(payOrderDetail);
         merOrderDto.setInnerTradeNo(tradeNo);
         merOrderDto.setInnerSeqNo(paySeqNo);
+    }
+
+    @Override
+    public void notifyOrder(NotifyPayParamPo notifyPayParamPo) {
+        PayOrderDetail payOrderDetail=new PayOrderDetail();
+        payOrderDetail.setPaySeqNo(notifyPayParamPo.getPaySeqNo());
+        payOrderDetail.setRespPayNo(notifyPayParamPo.getThirdTradeNo());
+        payOrderDetail.setPayStatus(notifyPayParamPo.getTradeStatus());
+        PayOrderDetail oldPayOrderDetail=payOrderDetailRep.findByPaySeqNo(payOrderDetail.getPaySeqNo());
+        if(!TradeStatusEnum.INIT.getCode().equals(oldPayOrderDetail.getPayStatus())){
+            return;
+        }
+
+        java.util.Date nowDate=new java.util.Date();
+        if(PayStatusEnum.PAY_SUCCESS.getCode()==payOrderDetail.getPayStatus()){
+            payOrderDetail.setPaySuccessTime(new java.sql.Timestamp(nowDate.getTime()));
+        }
+        payOrderDetail.setModiTime(new java.sql.Timestamp(nowDate.getTime()));
+        payOrderDetailRep.updateByPaySeqNo(payOrderDetail.getPayStatus(),payOrderDetail.getModiTime(),payOrderDetail.getPaySuccessTime(),payOrderDetail.getPaySeqNo());
+
+        PayTradeTotal payTradeTotal=new PayTradeTotal();
+        payTradeTotal.setTradeNo(oldPayOrderDetail.getTradeNo());
+        TradeStatusEnum tradeStatusEnum=TradeStatusEnum.parse(String.valueOf(notifyPayParamPo.getTradeStatus()));
+        payTradeTotal.setTradeStatus(tradeStatusEnum.getCode());
+        payTradeTotal.setModiTime(new java.sql.Timestamp(nowDate.getTime()) );
+        payTradeTotalRep.updateByTradeNo(payTradeTotal.getTradeStatus(),payTradeTotal.getModiTime(),payTradeTotal.getTradeNo());
+        MerOrder merOrder=new MerOrder();
+        merOrder.setTradeNo(oldPayOrderDetail.getTradeNo());
+        merOrder.setPayStatus(notifyPayParamPo.getTradeStatus());
+        merOrder.setModiTime(new java.sql.Timestamp(nowDate.getTime()));
+        merOrderRep.updateByTradeNo(merOrder.getPayStatus(),merOrder.getModiTime(),merOrder.getTradeNo());
     }
 }

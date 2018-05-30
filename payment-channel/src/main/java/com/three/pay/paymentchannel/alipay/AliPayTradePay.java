@@ -56,7 +56,8 @@ public class AliPayTradePay implements IChannelCore {
         reqParam.put("charset","utf-8");
         reqParam.put("timestamp",channelReqParam.getRequestTime());
         reqParam.put("version","1.0");
-       // reqParam.put("notify_url","www.baidu.com");
+        reqParam.put("notify_url","http://111.231.141.23:9002/AlipayNotify/pagePay");
+        reqParam.put("return_url","http://111.231.141.23:9001/web/index");
         reqParam.put("sign_type",merOrderDto.getSignType());
         //jsonObject.put("app_auth_token","1.0");
 

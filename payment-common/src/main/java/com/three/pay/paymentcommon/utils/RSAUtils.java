@@ -5,9 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.crypto.Cipher;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.security.*;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
@@ -159,12 +157,43 @@ public class RSAUtils {
         return null;
     }
 
+    /**
+     *
+     * @param data 待验证数据
+     * @param signData 签名值
+     * @param pubKeyStr 签名公钥
+     * @return
+     */
+    public static boolean verifyWithRsa2(String data,String signData, String pubKeyStr){
+        try {
+            Signature signature = Signature.getInstance(SHA_ALGORITHM2);
+            PublicKey pubKey=getPubKey(pubKeyStr);
+            signature.initVerify(pubKey);
+            signature.update(data.getBytes("utf-8"));
+            return signature.verify(Base64Utils.decode(signData));
+        }catch (Exception e){
+            logger.error("RSA2验证签名异常:{}",e);
+        }
+        return false;
+    }
+
     private static PrivateKey getPrivateKey( String privateKeyStr) throws Exception {
         InputStream ins= new ByteArrayInputStream(privateKeyStr.getBytes("utf-8"));
         KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
         byte[] encodedKey = StreamUtil.readText(ins).getBytes();
         encodedKey = Base64.decodeBase64(encodedKey);
         return keyFactory.generatePrivate(new PKCS8EncodedKeySpec(encodedKey));
+    }
+
+
+    private static PublicKey getPubKey( String pubKeyStr) throws Exception {
+        InputStream ins= new ByteArrayInputStream(pubKeyStr.getBytes("utf-8"));
+        KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
+        StringWriter writer = new StringWriter();
+        StreamUtil.io(new InputStreamReader(ins), writer);
+        byte[] encodedKey = writer.toString().getBytes();
+        encodedKey = Base64.decodeBase64(encodedKey);
+        return keyFactory.generatePublic(new X509EncodedKeySpec(encodedKey));
     }
 
 

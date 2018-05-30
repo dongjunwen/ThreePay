@@ -2,6 +2,10 @@ package com.three.pay.paymentjdbc.respository;
 
 import com.three.pay.paymentjdbc.entity.MerOrder;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+
+import java.sql.Timestamp;
 
 /**
  * @Author:luiz
@@ -10,5 +14,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Modify :
  **/
 public interface MerOrderRep extends JpaRepository<MerOrder,Long> {
-
+    @Modifying
+    @Query("update MerOrder u set u.payStatus = ?1,u.modiTime=?2 where u.tradeNo = ?3")
+    void updateByTradeNo(long payStatus, Timestamp modiTime,String tradeNo);
 }
