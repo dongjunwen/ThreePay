@@ -9,7 +9,5 @@ package com.three.pay.paymentchannel.alipay;
 public class AlipayConstant {
     //应用ID
     public static final String appId="2016091400508413";
-    public static final String authToken="2088102175574730";
-
 
 }

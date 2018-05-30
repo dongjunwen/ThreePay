@@ -18,3 +18,5 @@ httpConfig:
   connectionRequestTimeout: 3000
   connectTimeout: 3000
   socketTimeout: 5000
+server:
+  port: 9002

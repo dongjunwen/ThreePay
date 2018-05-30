@@ -21,7 +21,7 @@ public class ProductChannelRoute {
   private BigDecimal merFee;
   @Column(name = "pay_way")
   private String payWay;
-  @Column(name = "useLevel")
+  @Column(name = "use_level")
   private long useLevel;
   @Column(name = "status")
   private String status;

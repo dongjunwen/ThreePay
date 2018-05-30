@@ -28,7 +28,10 @@ public enum ResultCode {
     PRODUCT_CHANNEL_NOT_EXISTS("1104","产品渠道不存在"),
     CHANNELDETAIL_NOT_VALID("1105","渠道详情无效"),
     CHANNEL_NOT_VALID("1106","渠道无效"),
-
+    MER_NOT_EXISTS("1107","商户不存在"),
+    PRODUCT_NOT_EXISTS("1108","产品不存在"),
+    CHANNELDETAIL_NOT_EXISTS("1109","渠道详情不存在"),
+    CHANNEL_NOT_EXISTS("1110","渠道不存在"),
 
 
     SUCCESS("200","操作成功"),

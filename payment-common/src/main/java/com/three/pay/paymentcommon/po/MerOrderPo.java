@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -59,8 +60,7 @@ public class MerOrderPo {
     @Length(max = 256,message = "扩展参数3不能超过256")
     @ApiModelProperty(value = "保留域3",required =false )
     private String resv3;
-    @NotBlank(message = "产品编号不能为空")
-    @Length(min = 1,max = 32,message = "产品编号不能超过32")
+    @NotNull(message = "订单列表不能为空")
     @ApiModelProperty(value = "订单列表",required =true )
     private List<MerPaySeqPo> orderList;
     @ApiModelProperty(value = "货物列表",required =false )

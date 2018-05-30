@@ -43,9 +43,9 @@ public class MerOrder {
   private String userNo;
   @Column(name = "equip_type")
   private String equipType;
-  @Column(name = "equipIp")
+  @Column(name = "equip_ip")
   private String equipIp;
-  @Column(name = "equipNo")
+  @Column(name = "equip_no")
   private String equipNo;
   private String resv1;
   private String resv2;

@@ -2,37 +2,58 @@ package com.three.pay.paymentjdbc.entity;
 
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Component
+@Table(name = "pay_refund_detail")
 public class PayRefundDetail {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
+  @Column(name = "refund_seq_no")
   private String refundSeqNo;
+  @Column(name = "trade_no")
   private String tradeNo;
+  @Column(name = "pay_seq_no")
   private String paySeqNo;
+  @Column(name = "user_no")
   private String userNo;
+  @Column(name = "refund_way")
   private String refundWay;
+  @Column(name = "refund_amt")
   private double refundAmt;
+  @Column(name = "refund_status")
   private long refundStatus;
+  @Column(name = "refund_desc")
   private String refundDesc;
+  @Column(name = "start_time")
   private java.sql.Timestamp startTime;
+  @Column(name = "end_time")
   private java.sql.Timestamp endTime;
+  @Column(name = "once_str")
   private String onceStr;
+  @Column(name = "forward_url")
   private String forwardUrl;
+  @Column(name = "resp_refund_no")
   private String respRefundNo;
+  @Column(name = "mer_no")
   private String merNo;
+  @Column(name = "mer_name")
   private String merName;
+  @Column(name = "channel_code")
   private String channelCode;
+  @Column(name = "channel_name")
   private String channelName;
+  @Column(name = "channel_partener_no")
   private String channelPartenerNo;
-  private String channelPatenerName;
+  @Column(name = "channel_partener_name")
+  private String channelPartenerName;
+  @Column(name = "version")
   private long version;
+  @Column(name = "create_time")
   private java.sql.Timestamp createTime;
+  @Column(name = "modi_time")
   private java.sql.Timestamp modiTime;
 
 
@@ -207,12 +228,12 @@ public class PayRefundDetail {
   }
 
 
-  public String getChannelPatenerName() {
-    return channelPatenerName;
+  public String getChannelPartenerName() {
+    return channelPartenerName;
   }
 
-  public void setChannelPatenerName(String channelPatenerName) {
-    this.channelPatenerName = channelPatenerName;
+  public void setChannelPartenerName(String channelPatenerName) {
+    this.channelPartenerName = channelPatenerName;
   }
 
 

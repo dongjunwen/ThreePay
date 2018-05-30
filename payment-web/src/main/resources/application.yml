@@ -1,3 +1,4 @@
+
 spring:
   profiles:
     active: product
@@ -13,3 +14,19 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: UTC
+  thymeleaf:
+    cache: false
+    prefix: classpath:/views/
+    suffix: .html
+    mode: html5
+    encoding: utf-8
+    servlet:
+      content-type: text/html
+  resources:
+    chain:
+      strategy:
+        content:
+          enabled: true
+          paths: /**
+server:
+  port: 9001

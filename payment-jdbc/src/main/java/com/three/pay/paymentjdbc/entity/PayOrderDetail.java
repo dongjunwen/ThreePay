@@ -42,8 +42,8 @@ public class PayOrderDetail {
   private String channelName;
   @Column(name = "channel_partener_no")
   private String channelPartenerNo;
-  @Column(name = "channel_patener_name")
-  private String channelPatenerName;
+  @Column(name = "channel_partener_name")
+  private String channelPartenerName;
   @Column(name = "goods_name")
   private String goodsName;
   @Column(name = "goods_desc")
@@ -221,12 +221,12 @@ public class PayOrderDetail {
   }
 
 
-  public String getChannelPatenerName() {
-    return channelPatenerName;
+  public String getChannelPartenerName() {
+    return channelPartenerName;
   }
 
-  public void setChannelPatenerName(String channelPatenerName) {
-    this.channelPatenerName = channelPatenerName;
+  public void setChannelPartenerName(String channelPartenerName) {
+    this.channelPartenerName = channelPartenerName;
   }
 
 

@@ -2,30 +2,45 @@ package com.three.pay.paymentjdbc.entity;
 
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Component
+@Table(name = "mer_refund_order")
 public class MerRefundOrder {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
+  @Column(name = "refund_no")
   private String refundNo;
+  @Column(name = "refund_time")
   private java.sql.Timestamp refundTime;
+  @Column(name = "pay_no")
   private String payNo;
+  @Column(name = "trade_no")
   private String tradeNo;
+  @Column(name = "mer_no")
   private String merNo;
+  @Column(name = "mer_name")
   private String merName;
+  @Column(name = "mer_order_no")
   private String merOrderNo;
+  @Column(name = "mer_pay_seq")
   private String merPaySeq;
+  @Column(name = "user_no")
   private String userNo;
+  @Column(name = "refund_way")
   private String refundWay;
+  @Column(name = "refund_status")
   private long refundStatus;
-  private double refundAmt;
+  @Column(name = "refund_amt")
+  private BigDecimal refundAmt;
+  @Column(name = "refund_desc")
   private String refundDesc;
+  @Column(name = "create_time")
   private java.sql.Timestamp createTime;
+  @Column(name = "modi_time")
   private java.sql.Timestamp modiTime;
 
 
@@ -137,11 +152,11 @@ public class MerRefundOrder {
   }
 
 
-  public double getRefundAmt() {
+  public BigDecimal getRefundAmt() {
     return refundAmt;
   }
 
-  public void setRefundAmt(double refundAmt) {
+  public void setRefundAmt(BigDecimal refundAmt) {
     this.refundAmt = refundAmt;
   }
 

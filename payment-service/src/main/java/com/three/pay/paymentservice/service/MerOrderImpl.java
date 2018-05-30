@@ -15,6 +15,8 @@ import com.three.pay.paymentjdbc.entity.*;
 import com.three.pay.paymentservice.service.channel.IChannelService;
 import com.three.pay.paymentservice.service.core.*;
 import com.three.pay.paymentservice.utils.ValidatorUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,7 @@ import java.util.List;
  **/
 @Service
 public class MerOrderImpl implements ITradeProcess {
+    private static final Logger logger= LoggerFactory.getLogger(MerOrderImpl.class);
     @Autowired
     IProductInfo iProductInfo;
     @Autowired
@@ -62,17 +65,16 @@ public class MerOrderImpl implements ITradeProcess {
             MerOrderDto merOrderDto=switchChannelRoute(commonReqVo.getMerNo(),commonReqVo.getProductNo());
             //3.记录数据，生成订单号
             iOrderCenter.createOrder(merOrderDto,commonReqVo,merOrderPo);
-
             //4.执行渠道层动作
             ChannelRespParam channelRespParam=iChannelService.channelProcess(merOrderDto,commonReqVo);
-
-            //5.修改数据
-
-            //6.返回结果
+            //5.返回结果(创建订单后,等待付款)
+            payResult.setData(channelRespParam.getRespContent());
         }catch (BusinessException be){
+            logger.error("【订单统一处理】请求参数:{},发生业务异常:{}",commonReqVo,be);
             payResult.setError(be.getCode(),be.getMsg());
         } catch (Exception e){
-
+            logger.error("【订单统一处理】请求参数:{},发生异常:{}",commonReqVo,e);
+            payResult.setError(ResultCode.FAIL.getCode(),e.getMessage());
         }
         return payResult;
     }
@@ -86,18 +88,25 @@ public class MerOrderImpl implements ITradeProcess {
         MerOrderDto merOrderDto=new MerOrderDto();
         //1.校验商户是否有效
         MerInfo merInfo=iMerInfo.findByMerNo(merNo);
-        merOrderDto.setMerNo(merNo);
-        merOrderDto.setMerName(merInfo.getMerName());
+        if(merInfo==null){
+            throw new BusinessException(ResultCode.MER_NOT_VALID);
+        }
         if(!StatusEnum.YES.getCode().equals(merInfo.getStatus())){
            throw new BusinessException(ResultCode.MER_NOT_VALID);
         }
+        merOrderDto.setMerNo(merNo);
+        merOrderDto.setMerName(merInfo.getMerName());
         //校验产品是否有效
         ProductInfo productInfo=iProductInfo.findByProductNo(productNo);
+        if(productInfo==null){
+            throw new BusinessException(ResultCode.PRODUCT_NOT_EXISTS);
+        }
         if(!StatusEnum.YES.getCode().equals(productInfo.getStatus())){
             throw new BusinessException(ResultCode.PRODUCT_NOT_VALID);
         }
         merOrderDto.setProductNo(productNo);
         merOrderDto.setProductName(productInfo.getProductName());
+
 
         //校验产品对应的渠道是否有效
         List<ProductChannelRoute> productChannelRouteList= iProductChannelRoute.findAvailable();
@@ -112,25 +121,32 @@ public class MerOrderImpl implements ITradeProcess {
         merOrderDto.setMerFee(productChannelRoute.getMerFee());
 
         ChannelDetail channelDetail=ichannelDetail.findByPayWay(productChannelRoute.getPayWay());
+        if(channelDetail==null){
+            throw new BusinessException(ResultCode.CHANNELDETAIL_NOT_EXISTS);
+        }
         if(!StatusEnum.YES.getCode().equals(channelDetail.getStatus())){
             throw new BusinessException(ResultCode.CHANNELDETAIL_NOT_VALID);
         }
         merOrderDto.setPayWay(channelDetail.getPayWay());
         merOrderDto.setPayWayName(channelDetail.getPayWayName());
         merOrderDto.setChannelFee(channelDetail.getChannelFee());
+        merOrderDto.setSignType(channelDetail.getSignType());
         merOrderDto.setPrivKey(channelDetail.getPrivKey());
         merOrderDto.setPubKey(channelDetail.getPubKey());
         merOrderDto.setResvKey(channelDetail.getResvKey());
         merOrderDto.setResv1(channelDetail.getResv1());
         merOrderDto.setResv2(channelDetail.getResv2());
-
-        //校验商户产品是否有效
+        //校验商户渠道是否有效
         ChannelInfo channelInfo=iChannelInfo.findByChannelCode(channelDetail.getChannelCode());
+        if(channelInfo==null){
+            throw new BusinessException(ResultCode.CHANNEL_NOT_EXISTS);
+        }
         if(!StatusEnum.YES.getCode().equals(channelInfo.getStatus())){
             throw new BusinessException(ResultCode.CHANNEL_NOT_VALID);
         }
         merOrderDto.setChannelCode(channelInfo.getChannelCode());
         merOrderDto.setChannelName(channelInfo.getChannelName());
+
         //4.返回渠道详情
         return merOrderDto;
     }
