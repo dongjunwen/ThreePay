@@ -4,7 +4,9 @@ import com.three.pay.paymentjdbc.entity.PayOrderDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 /**
@@ -17,7 +19,28 @@ public interface PayOrderDetailRep extends JpaRepository<PayOrderDetail,Long> {
 
     PayOrderDetail findByPaySeqNo(String paySeqNo);
 
+    @Transactional
     @Modifying
-    @Query("update PayOrderDetail u set u.payStatus = ?1,u.modiTime=?2,u.paySuccessTime=?3 where u.paySeqNo = ?4")
-    void updateByPaySeqNo(long payStatus, Timestamp modiTime,Timestamp payTime,String paySeqNo);
+    @Query("update PayOrderDetail u set u.payStatus = ?1," +
+            "u.modiTime=?2," +
+            "u.paySuccessTime=?3, " +
+            "u.sellerAcct=?4," +
+            "u.paylerAcct=?5, " +
+            "u.respPayNo=?6, " +
+            "u.merRecvAmt=?7, " +
+            "u.thirdDiscountAmt=?8, " +
+            "u.buyInvoiceAmt=?9, " +
+            "u.buyPayAmt=?10 " +
+            " where u.paySeqNo=?11" )
+    void updateByPaySeqNo(long payStatus,
+                          Timestamp modiTime,
+                          Timestamp payTime,
+                          String sellerAcct,
+                          String paylerAcct,
+                          String respPayNo,
+                          BigDecimal merRecvAmt,
+                          BigDecimal thirdDiscountAmt,
+                          BigDecimal buyInvoiceAmt,
+                          BigDecimal buyPayAmt,
+                          String paySeqNo);
 }

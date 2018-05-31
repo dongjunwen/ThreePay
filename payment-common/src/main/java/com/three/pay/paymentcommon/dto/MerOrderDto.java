@@ -44,4 +44,8 @@ public class MerOrderDto {
      * 本系统流水号
      */
     private String innerSeqNo;
+    /**
+     * 交易类型
+     */
+    private int tradeType;
 }

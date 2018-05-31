@@ -157,6 +157,14 @@ public class RSAUtils {
         return null;
     }
 
+    private static PrivateKey getPrivateKey( String privateKeyStr) throws Exception {
+        InputStream ins= new ByteArrayInputStream(privateKeyStr.getBytes("utf-8"));
+        KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
+        byte[] encodedKey = StreamUtil.readText(ins).getBytes();
+        encodedKey = Base64.decodeBase64(encodedKey);
+        return keyFactory.generatePrivate(new PKCS8EncodedKeySpec(encodedKey));
+    }
+
     /**
      *
      * @param data 待验证数据
@@ -176,15 +184,6 @@ public class RSAUtils {
         }
         return false;
     }
-
-    private static PrivateKey getPrivateKey( String privateKeyStr) throws Exception {
-        InputStream ins= new ByteArrayInputStream(privateKeyStr.getBytes("utf-8"));
-        KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
-        byte[] encodedKey = StreamUtil.readText(ins).getBytes();
-        encodedKey = Base64.decodeBase64(encodedKey);
-        return keyFactory.generatePrivate(new PKCS8EncodedKeySpec(encodedKey));
-    }
-
 
     private static PublicKey getPubKey( String pubKeyStr) throws Exception {
         InputStream ins= new ByteArrayInputStream(pubKeyStr.getBytes("utf-8"));

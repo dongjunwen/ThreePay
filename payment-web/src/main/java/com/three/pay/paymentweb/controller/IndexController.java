@@ -31,4 +31,11 @@ public class IndexController {
         modelAndView.setViewName("createOrder");
         return modelAndView;
     }
+
+    @RequestMapping("/orderList")
+    public ModelAndView orderList(ModelMap modelMap){
+        ModelAndView modelAndView=new ModelAndView();
+        modelAndView.setViewName("orderList");
+        return modelAndView;
+    }
 }

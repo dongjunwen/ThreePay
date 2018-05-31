@@ -66,6 +66,14 @@ public class PayOrderDetail {
   private String equipNo;
   @Column(name = "equip_ip")
   private String equipIp;
+  @Column(name = "buy_invoice_amt")
+  private BigDecimal buyInvoiceAmt;
+  @Column(name = "buy_pay_amt")
+  private BigDecimal buyPayAmt;
+  @Column(name = "third_discount_amt")
+  private BigDecimal thirdDiscountAmt;
+  @Column(name = "mer_recv_amt")
+  private BigDecimal merRecvAmt;
   @Column(name = "once_str")
   private String onceStr;
   @Column(name = "forward_url")
@@ -328,6 +336,38 @@ public class PayOrderDetail {
     this.equipIp = equipIp;
   }
 
+
+  public BigDecimal getBuyInvoiceAmt() {
+    return buyInvoiceAmt;
+  }
+
+  public void setBuyInvoiceAmt(BigDecimal buyInvoiceAmt) {
+    this.buyInvoiceAmt = buyInvoiceAmt;
+  }
+
+  public BigDecimal getBuyPayAmt() {
+    return buyPayAmt;
+  }
+
+  public void setBuyPayAmt(BigDecimal buyPayAmt) {
+    this.buyPayAmt = buyPayAmt;
+  }
+
+  public BigDecimal getThirdDiscountAmt() {
+    return thirdDiscountAmt;
+  }
+
+  public void setThirdDiscountAmt(BigDecimal thirdDiscountAmt) {
+    this.thirdDiscountAmt = thirdDiscountAmt;
+  }
+
+  public BigDecimal getMerRecvAmt() {
+    return merRecvAmt;
+  }
+
+  public void setMerRecvAmt(BigDecimal merRecvAmt) {
+    this.merRecvAmt = merRecvAmt;
+  }
 
   public String getOnceStr() {
     return onceStr;

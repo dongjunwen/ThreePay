@@ -7,6 +7,7 @@ import com.three.pay.paymentcommon.po.MerPaySeqPo;
 import com.three.pay.paymentcommon.utils.DateUtil;
 import com.three.pay.paymentcommon.utils.HttpClientUtil;
 import com.three.pay.paymentweb.form.OrderForm;
+import com.three.pay.paymentweb.utils.IpUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -34,7 +36,9 @@ public class OrderController {
     private static final String payUrl="http://localhost:9002/api/trade";
 
     @RequestMapping(value = "/submitOrder",method = RequestMethod.POST)
-    public ModelAndView createOrder(OrderForm orderForm, HttpServletResponse response){
+    public ModelAndView createOrder(OrderForm orderForm,
+                                    HttpServletRequest request,
+                                    HttpServletResponse response){
         ModelAndView modelAndView=new ModelAndView();
         CommonReqParam commonReqParam=new CommonReqParam();
         commonReqParam.setMerNo("6002111111119");
@@ -43,19 +47,19 @@ public class OrderController {
         commonReqParam.setProductNo("ALIPAY-SCAN_CODE");
         commonReqParam.setServiceName("UNION_CREATE_ORDER");
         commonReqParam.setRequestTime(DateUtil.getDateTimeFormat(new Date()));
-        commonReqParam.setSignType("RSA");
+        commonReqParam.setSignType("RSA2");
         commonReqParam.setSignVlaue("XXXXXXXXXXX");
         commonReqParam.setVersion("1.0");
 
         MerOrderPo merOrderPo=new MerOrderPo();
-        merOrderPo.setDiscountAmt("0.01");
-        merOrderPo.setOrderAmt("0.02");
+        merOrderPo.setDiscountAmt("0.00");
+        merOrderPo.setOrderAmt(orderForm.getPayAmt());
         merOrderPo.setPayAmt(orderForm.getPayAmt());
-        merOrderPo.setEquipIp("192.168.1.1");
-        merOrderPo.setEquipType("IOS");
-        merOrderPo.setEquipNo("XXXXXXXXXXX001");
+        merOrderPo.setEquipIp(IpUtils.getIpAddr(request));
+        merOrderPo.setEquipType("WEB");
+        merOrderPo.setEquipNo("00000");
         merOrderPo.setGoodsName(orderForm.getGoodsName());
-        merOrderPo.setUserNo("TH0001");
+        merOrderPo.setUserNo("NONE");
         MerPaySeqPo merPaySeqPo=new MerPaySeqPo();
         merPaySeqPo.setOrderNo(orderForm.getOrderNo());
         merPaySeqPo.setMerPaySeq(orderForm.getOrderNo());

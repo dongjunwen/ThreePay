@@ -46,6 +46,8 @@ public class MerOrderImpl implements ITradeProcess {
     IChannelService iChannelService;
     @Autowired
     IOrderCenter iOrderCenter;
+    @Autowired
+    IPayReqLog iPayReqLog;
 
 
     @Override
@@ -67,6 +69,8 @@ public class MerOrderImpl implements ITradeProcess {
             iOrderCenter.createOrder(merOrderDto,commonReqVo,merOrderPo);
             //4.执行渠道层动作
             ChannelRespParam channelRespParam=iChannelService.channelProcess(merOrderDto,commonReqVo);
+            //执行同步请求存储动作
+            iPayReqLog.save(channelRespParam,merOrderDto);
             //5.返回结果(创建订单后,等待付款)
             payResult.setData(channelRespParam.getRespContent());
         }catch (BusinessException be){

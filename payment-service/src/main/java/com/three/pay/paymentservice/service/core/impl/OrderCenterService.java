@@ -17,6 +17,8 @@ import com.three.pay.paymentjdbc.respository.PayOrderDetailRep;
 import com.three.pay.paymentjdbc.respository.PayTradeTotalRep;
 import com.three.pay.paymentservice.service.core.IMerOrderDetail;
 import com.three.pay.paymentservice.service.core.IOrderCenter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +35,7 @@ import java.util.List;
  **/
 @Service
 public class OrderCenterService implements IOrderCenter {
+    private static final Logger logger=LoggerFactory.getLogger(OrderCenterService.class);
     @Autowired
     MerOrderRep merOrderRep;
     @Autowired
@@ -71,7 +74,7 @@ public class OrderCenterService implements IOrderCenter {
             merOrder.setResv2(merOrderPo.getResv2());
             merOrder.setResv3(merOrderPo.getResv3());
             merOrder.setTradeNo(tradeNo);
-            tradeAmt.add(new BigDecimal(merOrderPo.getPayAmt()));
+            tradeAmt=tradeAmt.add(new BigDecimal(merOrderPo.getPayAmt()));
             merOrder.setCreateTime(new java.sql.Timestamp(nowDate.getTime()));
             merOrder.setModiTime(new java.sql.Timestamp(nowDate.getTime()));
             merOrderList.add(merOrder);
@@ -119,25 +122,45 @@ public class OrderCenterService implements IOrderCenter {
         payOrderDetailRep.saveAndFlush(payOrderDetail);
         merOrderDto.setInnerTradeNo(tradeNo);
         merOrderDto.setInnerSeqNo(paySeqNo);
+        merOrderDto.setTradeType(TradeTypeEnum.PAY.getCode());
     }
 
     @Override
+    @Transactional
     public void notifyOrder(NotifyPayParamPo notifyPayParamPo) {
         PayOrderDetail payOrderDetail=new PayOrderDetail();
         payOrderDetail.setPaySeqNo(notifyPayParamPo.getPaySeqNo());
         payOrderDetail.setRespPayNo(notifyPayParamPo.getThirdTradeNo());
         payOrderDetail.setPayStatus(notifyPayParamPo.getTradeStatus());
         PayOrderDetail oldPayOrderDetail=payOrderDetailRep.findByPaySeqNo(payOrderDetail.getPaySeqNo());
-        if(!TradeStatusEnum.INIT.getCode().equals(oldPayOrderDetail.getPayStatus())){
+        if(PayStatusEnum.PAY_INIT.getCode()!=oldPayOrderDetail.getPayStatus()){
+            logger.info("[通知修改订单]状态不是处理中,参数:{}",notifyPayParamPo);
             return;
         }
-
         java.util.Date nowDate=new java.util.Date();
         if(PayStatusEnum.PAY_SUCCESS.getCode()==payOrderDetail.getPayStatus()){
-            payOrderDetail.setPaySuccessTime(new java.sql.Timestamp(nowDate.getTime()));
+            payOrderDetail.setPaySuccessTime(new java.sql.Timestamp(notifyPayParamPo.getThirdPayTime().getTime()));
         }
+        payOrderDetail.setSellerAcct(notifyPayParamPo.getSellerId());
+        payOrderDetail.setPaylerAcct(notifyPayParamPo.getBuyllerId());
+        payOrderDetail.setBuyInvoiceAmt(notifyPayParamPo.getBuyInvoiceAmt());
+        payOrderDetail.setMerRecvAmt(notifyPayParamPo.getMerRecvAmt());
+        payOrderDetail.setThirdDiscountAmt(notifyPayParamPo.getThirdDiscountAmt());
+        payOrderDetail.setBuyPayAmt(notifyPayParamPo.getBuyPyAmt());
         payOrderDetail.setModiTime(new java.sql.Timestamp(nowDate.getTime()));
-        payOrderDetailRep.updateByPaySeqNo(payOrderDetail.getPayStatus(),payOrderDetail.getModiTime(),payOrderDetail.getPaySuccessTime(),payOrderDetail.getPaySeqNo());
+        payOrderDetailRep.updateByPaySeqNo(
+                payOrderDetail.getPayStatus(),
+                payOrderDetail.getModiTime(),
+                payOrderDetail.getPaySuccessTime(),
+                payOrderDetail.getSellerAcct(),
+                payOrderDetail.getPaylerAcct(),
+                payOrderDetail.getRespPayNo(),
+                payOrderDetail.getMerRecvAmt(),
+                payOrderDetail.getThirdDiscountAmt(),
+                payOrderDetail.getBuyInvoiceAmt(),
+                payOrderDetail.getBuyPayAmt(),
+                payOrderDetail.getPaySeqNo()
+        );
 
         PayTradeTotal payTradeTotal=new PayTradeTotal();
         payTradeTotal.setTradeNo(oldPayOrderDetail.getTradeNo());
