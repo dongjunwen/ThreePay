@@ -2,7 +2,8 @@ package com.three.pay.paymentchannel;
 
 import com.three.pay.paymentchannel.param.ChannelReqParam;
 import com.three.pay.paymentchannel.param.ChannelRespParam;
-import com.three.pay.paymentcommon.dto.MerOrderDto;
+import com.three.pay.paymentcommon.dto.MerChannelInfo;
+import com.three.pay.paymentcommon.enums.ChannelActionEnum;
 import com.three.pay.paymentcommon.enums.PayWayEnum;
 
 /**
@@ -12,8 +13,8 @@ import com.three.pay.paymentcommon.enums.PayWayEnum;
  * @Modify :
  **/
 public interface IChannelCore {
-    boolean isSupport(PayWayEnum payWayEnum);
+    boolean isSupport(PayWayEnum payWayEnum, ChannelActionEnum channelActionEnum);
 
-    ChannelRespParam channelProcess(MerOrderDto merOrderDto, ChannelReqParam channelReqParam);
+    ChannelRespParam channelProcess(MerChannelInfo merChannelInfo, ChannelReqParam channelReqParam);
 
 }

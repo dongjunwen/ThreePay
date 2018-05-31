@@ -175,6 +175,47 @@ public class HttpClientUtil {
         return httpStr;
     }
 
+
+    /**
+     * 发送 POST 请求（HTTP），K-V形式
+     * @param apiUrl API接口URL
+     * @param reqParams 请求参数
+     * @return
+     */
+    public static String doPostStr(String apiUrl, String reqParams) {
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        String httpStr = null;
+        HttpPost httpPost = new HttpPost(apiUrl);
+        CloseableHttpResponse response = null;
+        try {
+            httpPost.setConfig(requestConfig);
+            StringEntity stringEntity=new StringEntity(reqParams,"utf-8");
+            stringEntity.setContentType("application/x-www-form-urlencoded");
+            httpPost.setEntity(stringEntity);
+            logger.info("[http工具类]请求地址:{}请求参数:{}",apiUrl,reqParams);
+            response = httpClient.execute(httpPost);
+            if(302==response.getStatusLine().getStatusCode()){
+                Header header = response.getFirstHeader("location"); // 跳转的目标地址是在 HTTP-HEAD 中的
+                String newUri = header.getValue(); // 这就是跳转后的地址，再向这个地址发出新申请，以便得到跳转后的信息是啥。
+                return doPost(newUri,reqParams);
+            }
+            HttpEntity entity = response.getEntity();
+            httpStr = EntityUtils.toString(entity, "UTF-8");
+            logger.info("[http工具类]响应内容:{}",httpStr);
+        } catch (IOException e) {
+            logger.error("[http工具类]请求发生IO异常:",e);
+        } finally {
+            if (response != null) {
+                try {
+                    EntityUtils.consume(response.getEntity());
+                } catch (IOException e) {
+                    logger.error("[http工具类]请求发生IO异常1:",e);
+                }
+            }
+        }
+        return httpStr;
+    }
+
     /**
      * 发送 POST 请求（HTTP），JSON形式
      * @param apiUrl

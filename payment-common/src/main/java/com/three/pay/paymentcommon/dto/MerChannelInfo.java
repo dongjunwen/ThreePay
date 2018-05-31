@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 @Setter
 @Getter
 @ToString
-public class MerOrderDto {
+public class MerChannelInfo {
 
     private String merNo;
     private String merName;
@@ -24,6 +24,9 @@ public class MerOrderDto {
     private String productName;
     private String channelCode;
     private String channelName;
+    /**
+     * 支付方式
+     */
     private String payWay;
     private String payWayName;
     private String signType;
@@ -37,6 +40,10 @@ public class MerOrderDto {
     private String channelPartenerNo;
     private String channelPartenerName;
     /**
+     * 渠道层动作
+     */
+    private String channelAction;
+    /**
      * 本系统交易号
      */
     private String innerTradeNo;
@@ -44,6 +51,10 @@ public class MerOrderDto {
      * 本系统流水号
      */
     private String innerSeqNo;
+    /**
+     * 第三方系统交易流水号
+     */
+    private String thirdSeqNo;
     /**
      * 交易类型
      */

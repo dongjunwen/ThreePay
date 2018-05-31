@@ -4,7 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.three.pay.paymentchannel.IChannelCore;
 import com.three.pay.paymentchannel.param.ChannelReqParam;
 import com.three.pay.paymentchannel.param.ChannelRespParam;
-import com.three.pay.paymentcommon.dto.MerOrderDto;
+import com.three.pay.paymentcommon.dto.MerChannelInfo;
+import com.three.pay.paymentcommon.enums.ChannelActionEnum;
 import com.three.pay.paymentcommon.enums.PayWayEnum;
 import com.three.pay.paymentcommon.utils.PairString;
 import com.three.pay.paymentcommon.utils.RSAUtils;
@@ -29,17 +30,16 @@ public class AliPayTradePay implements IChannelCore {
 
 
     @Override
-    public boolean isSupport(PayWayEnum payWayEnum) {
-        return PayWayEnum.ALIPAY_SCAN_CODE.equals(payWayEnum);
+    public boolean isSupport(PayWayEnum payWayEnum, ChannelActionEnum channelActionEnum) {
+        boolean flag=ChannelActionEnum.CREATE_ORDER.equals(channelActionEnum) && PayWayEnum.ALIPAY_SCAN_CODE.equals(payWayEnum);
+        return flag;
     }
 
     @Override
-    public ChannelRespParam channelProcess(MerOrderDto merOrderDto, ChannelReqParam channelReqParam) {
+    public ChannelRespParam channelProcess(MerChannelInfo merChannelInfo, ChannelReqParam channelReqParam) {
         //1.构造请求参数
-        String reqContent=buildReqParam(merOrderDto,channelReqParam);
+        String reqContent=buildReqParam(merChannelInfo,channelReqParam);
         logger.info("[支付宝交易]返回内容:{}",reqContent);
-        //2.发送请求
-        //String respContent= HttpClientUtil.doPost(alipayUrl,reqContent);
         ChannelRespParam channelRespParam=new ChannelRespParam();
         channelRespParam.setRespCode("00");
         channelRespParam.setRespMsg("成功");
@@ -48,9 +48,9 @@ public class AliPayTradePay implements IChannelCore {
         return channelRespParam;
     }
 
-    private String buildReqParam(MerOrderDto merOrderDto, ChannelReqParam channelReqParam) {
+    private String buildReqParam(MerChannelInfo merChannelInfo, ChannelReqParam channelReqParam) {
         Map reqParam=new ConcurrentHashMap<>();
-        reqParam.put("app_id",merOrderDto.getChannelPartenerNo());
+        reqParam.put("app_id", merChannelInfo.getChannelPartenerNo());
         reqParam.put("method","alipay.trade.page.pay");
         reqParam.put("format","json");
         reqParam.put("charset","utf-8");
@@ -58,11 +58,10 @@ public class AliPayTradePay implements IChannelCore {
         reqParam.put("version","1.0");
         reqParam.put("notify_url","http://111.231.141.23:9002/AlipayNotify/pagePay");
         reqParam.put("return_url","http://111.231.141.23:9001/web/index");
-        reqParam.put("sign_type",merOrderDto.getSignType());
-        //jsonObject.put("app_auth_token","1.0");
+        reqParam.put("sign_type", merChannelInfo.getSignType());
 
         JSONObject bizContent=new JSONObject();
-        bizContent.put("out_trade_no",merOrderDto.getInnerSeqNo());
+        bizContent.put("out_trade_no", merChannelInfo.getInnerSeqNo());
         bizContent.put("product_code","FAST_INSTANT_TRADE_PAY");
         JSONObject reqContent=JSONObject.parseObject(channelReqParam.getReqContent());
         bizContent.put("subject",reqContent.getString("goodsName"));
@@ -70,7 +69,7 @@ public class AliPayTradePay implements IChannelCore {
         bizContent.put("body",reqContent.getString("goodsName"));
         reqParam.put("biz_content",bizContent.toString());
         String content=  PairString.createLinkString(reqParam);
-        String signValue=RSAUtils.signWithRsa2(content,merOrderDto.getPrivKey());
+        String signValue=RSAUtils.signWithRsa2(content, merChannelInfo.getPrivKey());
         reqParam.put("sign",signValue);
 
         reqParam.remove("biz_content");

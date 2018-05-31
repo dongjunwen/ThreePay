@@ -4,7 +4,8 @@ import com.three.pay.paymentapi.vo.CommonReqParam;
 import com.three.pay.paymentchannel.IChannelCore;
 import com.three.pay.paymentchannel.param.ChannelReqParam;
 import com.three.pay.paymentchannel.param.ChannelRespParam;
-import com.three.pay.paymentcommon.dto.MerOrderDto;
+import com.three.pay.paymentcommon.dto.MerChannelInfo;
+import com.three.pay.paymentcommon.enums.ChannelActionEnum;
 import com.three.pay.paymentcommon.enums.PayWayEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,17 +27,17 @@ public  class ChannelService implements IChannelService {
     @Autowired
     List<IChannelCore> iChannelCores;
 
-    private IChannelCore getByPayWay(String payWay) {
-        return iChannelCores.stream().filter(s->s.isSupport(PayWayEnum.parse(payWay))).findFirst().get();
+    private IChannelCore getByPayWay(String payWay,String channelAction) {
+        return iChannelCores.stream().filter(s->s.isSupport(PayWayEnum.parse(payWay), ChannelActionEnum.parse(channelAction))).findFirst().get();
     }
 
     @Override
-    public ChannelRespParam channelProcess(MerOrderDto merOrderDto, CommonReqParam commonReqVo) {
-        IChannelCore iChannelCore=getByPayWay(merOrderDto.getPayWay());
+    public ChannelRespParam channelProcess(MerChannelInfo merChannelInfo, CommonReqParam commonReqVo) {
+        IChannelCore iChannelCore=getByPayWay(merChannelInfo.getPayWay(), merChannelInfo.getChannelAction());
         ChannelReqParam channelReqParam=new ChannelReqParam();
         BeanUtils.copyProperties(commonReqVo,channelReqParam);
         logger.info("[渠道层]请求第三方参数:{}",channelReqParam);
-        ChannelRespParam channelRespParam=iChannelCore.channelProcess(merOrderDto,channelReqParam);
+        ChannelRespParam channelRespParam=iChannelCore.channelProcess(merChannelInfo,channelReqParam);
         logger.info("[渠道层]请求第三方响应:{}",channelRespParam);
         return channelRespParam;
     }

@@ -11,4 +11,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  **/
 public interface ProductChannelRep extends JpaRepository<ProductChannelRoute,Long> {
 
+    ProductChannelRoute findByMerNoAndPayWay(String merNo, String payWay);
 }

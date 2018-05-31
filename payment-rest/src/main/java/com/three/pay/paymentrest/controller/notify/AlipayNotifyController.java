@@ -98,6 +98,8 @@ public class AlipayNotifyController {
             notifyPayParamPo.setTradeStatus(PayStatusEnum.PAY_CLOSE.getCode());
         }else  if("TRADE_SUCCESS".equals(tradeStatus)){
             notifyPayParamPo.setTradeStatus(PayStatusEnum.PAY_SUCCESS.getCode());
+        }else if("TRADE_FINISHED".equals(tradeStatus)){
+            notifyPayParamPo.setTradeStatus(PayStatusEnum.PAY_FINISH.getCode());
         }
         iOrderCenter.notifyOrder(notifyPayParamPo);
         return "success";

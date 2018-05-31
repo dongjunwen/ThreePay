@@ -26,4 +26,9 @@ public class ProductChannelRouteService implements IProductChannelRoute {
         List<ProductChannelRoute> avalibleList=productChannelRoutes.stream().filter(s->s.getStatus().equals(StatusEnum.YES.getCode())).collect(Collectors.toList());
         return  avalibleList;
     }
+
+    @Override
+    public ProductChannelRoute findByMerNoAndPayWay(String merNo, String payWay) {
+        return productChannelRep.findByMerNoAndPayWay(merNo,payWay);
+    }
 }

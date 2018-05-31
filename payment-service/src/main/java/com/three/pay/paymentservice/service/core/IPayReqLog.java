@@ -1,7 +1,7 @@
 package com.three.pay.paymentservice.service.core;
 
 import com.three.pay.paymentchannel.param.ChannelRespParam;
-import com.three.pay.paymentcommon.dto.MerOrderDto;
+import com.three.pay.paymentcommon.dto.MerChannelInfo;
 
 /**
  * @Author:luiz
@@ -11,5 +11,5 @@ import com.three.pay.paymentcommon.dto.MerOrderDto;
  **/
 public interface IPayReqLog {
 
-    void save(ChannelRespParam channelRespParam,MerOrderDto merOrderDto);
+    void save(ChannelRespParam channelRespParam,MerChannelInfo merChannelInfo);
 }

@@ -1,7 +1,7 @@
 package com.three.pay.paymentservice.service.core.impl;
 
 import com.three.pay.paymentchannel.param.ChannelRespParam;
-import com.three.pay.paymentcommon.dto.MerOrderDto;
+import com.three.pay.paymentcommon.dto.MerChannelInfo;
 import com.three.pay.paymentjdbc.entity.PayReqLog;
 import com.three.pay.paymentjdbc.respository.PayReqLogRep;
 import com.three.pay.paymentservice.service.core.IPayReqLog;
@@ -19,12 +19,12 @@ public class PayReqLogService implements IPayReqLog {
     @Autowired
     PayReqLogRep payReqLogRep;
     @Override
-    public void save(ChannelRespParam channelRespParam,MerOrderDto merOrderDto) {
+    public void save(ChannelRespParam channelRespParam,MerChannelInfo merChannelInfo) {
         PayReqLog payReqLog=new PayReqLog();
-        payReqLog.setTradeNo(merOrderDto.getInnerSeqNo());
-        payReqLog.setTradeType(merOrderDto.getTradeType());
-        payReqLog.setPayWay(merOrderDto.getPayWay());
-        payReqLog.setPayWayName(merOrderDto.getPayWayName());
+        payReqLog.setTradeNo(merChannelInfo.getInnerSeqNo());
+        payReqLog.setTradeType(merChannelInfo.getTradeType());
+        payReqLog.setPayWay(merChannelInfo.getPayWay());
+        payReqLog.setPayWayName(merChannelInfo.getPayWayName());
         payReqLog.setSynContent(channelRespParam.getRespContent());
 
         payReqLogRep.save(payReqLog);

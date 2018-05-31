@@ -12,4 +12,6 @@ import java.util.List;
  **/
 public interface IProductChannelRoute {
     List<ProductChannelRoute> findAvailable();
+
+    ProductChannelRoute findByMerNoAndPayWay(String merNo, String payWay);
 }

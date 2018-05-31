@@ -21,7 +21,10 @@ import java.util.List;
 @Getter
 @ToString
 public class MerOrderPo {
-
+    @NotBlank(message = "产品编号不能为空")
+    @Length(min = 1,max = 32,message = "产品编号不能超过32")
+    @ApiModelProperty(value = "产品编号",required =true )
+    private String productNo;
     @NotBlank(message = "商品名称不能为空")
     @Length(min = 1,max = 256,message = "商品名称不能超过256")
     @ApiModelProperty(value = "商品名称",required =true )

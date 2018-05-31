@@ -4,10 +4,12 @@ import com.three.pay.paymentjdbc.entity.PayOrderDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * @Author:luiz
@@ -43,4 +45,7 @@ public interface PayOrderDetailRep extends JpaRepository<PayOrderDetail,Long> {
                           BigDecimal buyInvoiceAmt,
                           BigDecimal buyPayAmt,
                           String paySeqNo);
+
+    @Query(value = "select * from pay_order_detail where trade_no=:tradeNo ",nativeQuery = true)
+    List<PayOrderDetail> findByTradeNo(@Param("tradeNo") String tradeNo);
 }

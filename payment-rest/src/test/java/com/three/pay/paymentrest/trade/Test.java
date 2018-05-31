@@ -22,7 +22,7 @@ public class Test {
         commonReqParam.setMerNo("6002111111119");
         commonReqParam.setCharsetCode("utf-8");
         commonReqParam.setNotifyUrl("www.baidu.com");
-        commonReqParam.setProductNo("ALIPAY-SCAN_CODE");
+
         commonReqParam.setServiceName("UNION_CREATE_ORDER");
         commonReqParam.setRequestTime(DateUtil.getDateTimeFormat(new Date()));
         commonReqParam.setSignType("RSA");
@@ -30,6 +30,7 @@ public class Test {
         commonReqParam.setVersion("1.0");
 
         MerOrderPo merOrderPo=new MerOrderPo();
+        merOrderPo.setProductNo("ALIPAY-SCAN_CODE");
         merOrderPo.setDiscountAmt("0.01");
         merOrderPo.setOrderAmt("0.02");
         merOrderPo.setPayAmt("0.01");
