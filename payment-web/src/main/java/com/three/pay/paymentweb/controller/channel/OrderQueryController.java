@@ -27,7 +27,7 @@ import java.util.List;
  * @Modify :
  **/
 @Controller
-@RequestMapping("/web")
+@RequestMapping("/channel")
 public class OrderQueryController {
     private static final Logger logger= LoggerFactory.getLogger(OrderQueryController.class);
     private static final String payUrl="http://localhost:9002/api/trade";
@@ -62,11 +62,11 @@ public class OrderQueryController {
         String retCode=respJson.getString("retCode");
         String retMsg=respJson.getString("retMsg");
         String respData="";
-        String viewName="orderSuccess";
+        String viewName="/channel/orderSuccess";
         if("200".equals(retCode)){
             respData=respJson.getString("data");
         }else{
-             viewName="error";
+             viewName="/channel/error";
         }
         modelAndView.addObject("retMsg",retMsg);
         modelAndView.addObject("respData",respData);

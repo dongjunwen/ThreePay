@@ -30,7 +30,7 @@ import java.util.List;
  * @Modify :
  **/
 @Controller
-@RequestMapping("/web")
+@RequestMapping("/channel")
 public class OrderController {
     private static final Logger logger= LoggerFactory.getLogger(OrderController.class);
     private static final String payUrl="http://111.231.141.23:9002/api/trade";
@@ -77,7 +77,7 @@ public class OrderController {
         String retCode=respJson.getString("retCode");
         String retMsg=respJson.getString("retMsg");
         String respData="";
-        String viewName="orderSuccess";
+        String viewName="/channel/orderSuccess";
         if("200".equals(retCode)){
             respData=respJson.getString("data");
             logger.info("[订单创建]返回数据:{}",respData);
@@ -95,7 +95,7 @@ public class OrderController {
                 modelAndView.setViewName("error");
             }
         }else{
-             viewName="error";
+             viewName="/channel/error";
         }
         modelAndView.addObject("retMsg",retMsg);
         modelAndView.addObject("respData",respData);
