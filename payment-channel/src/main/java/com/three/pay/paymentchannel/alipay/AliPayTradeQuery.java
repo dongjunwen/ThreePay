@@ -2,6 +2,7 @@ package com.three.pay.paymentchannel.alipay;
 
 import com.alibaba.fastjson.JSONObject;
 import com.three.pay.paymentchannel.IChannelCore;
+import com.three.pay.paymentchannel.config.ChannelConstant;
 import com.three.pay.paymentchannel.param.ChannelReqParam;
 import com.three.pay.paymentchannel.param.ChannelRespParam;
 import com.three.pay.paymentcommon.dto.MerChannelInfo;
@@ -17,6 +18,7 @@ import com.three.pay.paymentjdbc.entity.PayOrderDetail;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -35,7 +37,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class AliPayTradeQuery implements IChannelCore {
     private static final Logger logger= LoggerFactory.getLogger(AliPayTradeQuery.class);
 
-    private static final String alipayUrl="https://openapi.alipaydev.com/gateway.do";
+   @Autowired
+    ChannelConstant channelConstant;
 
 
     @Override
@@ -50,7 +53,7 @@ public class AliPayTradeQuery implements IChannelCore {
         Map reqParam=buildReqParam(merChannelInfo,channelReqParam);
         logger.info("[支付宝查询]请求内容:{}",reqParam.toString());
         //2.发送请求
-        String respContent= HttpClientUtil.doPost(alipayUrl,reqParam);
+        String respContent= HttpClientUtil.doPost(channelConstant.getAlipayUrl(),reqParam);
         logger.info("[支付宝查询]返回内容:{}",respContent);
         ChannelRespParam channelRespParam=convertRespData(respContent,merChannelInfo);
         //3.处理响应
@@ -64,7 +67,6 @@ public class AliPayTradeQuery implements IChannelCore {
         JSONObject alipayTradeRespJson=JSONObject.parseObject(alipayTradeResp);
         String code=alipayTradeRespJson.getString("code");
         String msg=alipayTradeRespJson.getString("msg");
-
         String signValue=respJson.getString("sign");
         int firstIndex=respContent.indexOf(":{")+1;
         int endIndex=respContent.indexOf("},")+1;

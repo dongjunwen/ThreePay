@@ -51,6 +51,9 @@ public class CommonReqParam {
     @Length(max = 256,message = "通知地址不能超过256")
     @ApiModelProperty(value = "通知地址",required =true )
     private String notifyUrl;
+    @Length(max = 256,message = "跳转地址不能超过256")
+    @ApiModelProperty(value = "跳转地址",required =true )
+    private String forwardUrl;
     @NotBlank(message = "详细内容不能为空")
     @ApiModelProperty(value = "详细内容",required =true )
     private String reqContent;

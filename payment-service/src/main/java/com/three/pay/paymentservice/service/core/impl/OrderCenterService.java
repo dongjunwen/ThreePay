@@ -117,7 +117,8 @@ public class OrderCenterService implements IOrderCenter {
         payOrderDetail.setEquipIp(merOrderPo.getEquipIp());
         payOrderDetail.setEquipType(merOrderPo.getEquipType());
         payOrderDetail.setEquipNo(merOrderPo.getEquipNo());
-        //payOrderDetail.setForwardUrl(merOrderPo.get);
+        payOrderDetail.setNotifyUrl(commonReqVo.getNotifyUrl());
+        payOrderDetail.setForwardUrl(commonReqVo.getForwardUrl());
         payOrderDetail.setCreateTime(new java.sql.Timestamp(nowDate.getTime()));
         payOrderDetail.setModiTime(new java.sql.Timestamp(nowDate.getTime()));
         payOrderDetailRep.saveAndFlush(payOrderDetail);
@@ -134,7 +135,7 @@ public class OrderCenterService implements IOrderCenter {
         payOrderDetail.setRespPayNo(notifyPayParamPo.getThirdTradeNo());
         payOrderDetail.setPayStatus(notifyPayParamPo.getTradeStatus());
         PayOrderDetail oldPayOrderDetail=payOrderDetailRep.findByPaySeqNo(payOrderDetail.getPaySeqNo());
-        if(PayStatusEnum.PAY_INIT.getCode()!=oldPayOrderDetail.getPayStatus()){
+        if(oldPayOrderDetail==null||PayStatusEnum.PAY_INIT.getCode()!=oldPayOrderDetail.getPayStatus()){
             logger.info("[通知修改订单]状态不是处理中,参数:{}",notifyPayParamPo);
             return;
         }

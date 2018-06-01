@@ -24,5 +24,6 @@ public class ChannelReqParam {
     private String requestTime;
     private String version;
     private String notifyUrl;
+    private String forwardUrl;
     private String reqContent;
 }

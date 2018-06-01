@@ -76,6 +76,8 @@ public class PayOrderDetail {
   private BigDecimal merRecvAmt;
   @Column(name = "once_str")
   private String onceStr;
+  @Column(name = "notify_url")
+  private String notifyUrl;
   @Column(name = "forward_url")
   private String forwardUrl;
   @Column(name = "resp_pay_no")
@@ -422,4 +424,11 @@ public class PayOrderDetail {
     this.modiTime = modiTime;
   }
 
+  public String getNotifyUrl() {
+    return notifyUrl;
+  }
+
+  public void setNotifyUrl(String notifyUrl) {
+    this.notifyUrl = notifyUrl;
+  }
 }

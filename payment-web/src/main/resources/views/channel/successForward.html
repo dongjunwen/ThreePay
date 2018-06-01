@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>三人科技有限公司支付成功跳转页面</title>
+</head>
+<form name="forwardForm" method="post" th:action="${forwardUrl}" >
+    <input type="submit" value="跳转" style="display: none">
+</form>
+<script>document.forms[0].submit();</script>
+<body>
+</body>
+</html>

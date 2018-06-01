@@ -2,15 +2,18 @@ package com.three.pay.paymentchannel.alipay;
 
 import com.alibaba.fastjson.JSONObject;
 import com.three.pay.paymentchannel.IChannelCore;
+import com.three.pay.paymentchannel.config.ChannelConstant;
 import com.three.pay.paymentchannel.param.ChannelReqParam;
 import com.three.pay.paymentchannel.param.ChannelRespParam;
 import com.three.pay.paymentcommon.dto.MerChannelInfo;
 import com.three.pay.paymentcommon.enums.ChannelActionEnum;
+import com.three.pay.paymentcommon.enums.ChannelCodeEnum;
 import com.three.pay.paymentcommon.enums.PayWayEnum;
 import com.three.pay.paymentcommon.utils.PairString;
 import com.three.pay.paymentcommon.utils.RSAUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -25,9 +28,8 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class AliPayTradePay implements IChannelCore {
     private static final Logger logger= LoggerFactory.getLogger(AliPayTradePay.class);
-
-    private static final String alipayUrl="https://openapi.alipaydev.com/gateway.do";
-
+    @Autowired
+    ChannelConstant channelConstant;
 
     @Override
     public boolean isSupport(PayWayEnum payWayEnum, ChannelActionEnum channelActionEnum) {
@@ -41,7 +43,7 @@ public class AliPayTradePay implements IChannelCore {
         String reqContent=buildReqParam(merChannelInfo,channelReqParam);
         logger.info("[支付宝交易]返回内容:{}",reqContent);
         ChannelRespParam channelRespParam=new ChannelRespParam();
-        channelRespParam.setRespCode("00");
+        channelRespParam.setRespCode(ChannelCodeEnum.SUCCESS.getCode());
         channelRespParam.setRespMsg("成功");
         channelRespParam.setRespContent(reqContent);
         //3.处理响应
@@ -56,8 +58,8 @@ public class AliPayTradePay implements IChannelCore {
         reqParam.put("charset","utf-8");
         reqParam.put("timestamp",channelReqParam.getRequestTime());
         reqParam.put("version","1.0");
-        reqParam.put("notify_url","http://111.231.141.23:9002/AlipayNotify/pagePay");
-        reqParam.put("return_url","http://111.231.141.23:9001/web/index");
+        reqParam.put("notify_url",channelConstant.getNotifyUrl());
+        reqParam.put("return_url",channelConstant.getForwardUrl());
         reqParam.put("sign_type", merChannelInfo.getSignType());
 
         JSONObject bizContent=new JSONObject();
@@ -74,7 +76,7 @@ public class AliPayTradePay implements IChannelCore {
 
         reqParam.remove("biz_content");
         String baseUrl=PairString.createLinkStringForEncode(reqParam);
-        baseUrl=alipayUrl+"?"+baseUrl;
+        baseUrl=channelConstant.getAlipayUrl()+"?"+baseUrl;
         //转义后给前端显示
        // String parameterContent=StringHtmlUtils.htmlEncode(bizContent.toString());
         return buildForm(baseUrl,bizContent);
