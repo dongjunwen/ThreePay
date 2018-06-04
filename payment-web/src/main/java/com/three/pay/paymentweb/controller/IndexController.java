@@ -12,15 +12,16 @@ import org.springframework.web.servlet.ModelAndView;
  * @Modify :
  **/
 @Controller
-@RequestMapping("/web")
+@RequestMapping("")
 public class IndexController {
 
-    @RequestMapping("/index")
+    @RequestMapping("/web/index")
     public ModelAndView index(ModelMap modelMap){
         ModelAndView modelAndView=new ModelAndView();
         modelAndView.setViewName("web/index");
         //modelAndView.setViewName("/web/index"); 这种方式打成jar包后报错
         return modelAndView;
     }
+
 
 }
