@@ -2,6 +2,7 @@ package com.three.pay.paymentjdbc.respository;
 
 import com.three.pay.paymentjdbc.entity.MerOrder;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 /**
  * @Author:luiz
@@ -9,6 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Descripton:
  * @Modify :
  **/
-public interface MerOrderRepository extends JpaRepository<MerOrder,Long> {
+public interface MerOrderRepository extends JpaRepository<MerOrder,Long>,JpaSpecificationExecutor<MerOrder> {
 
 }
