@@ -23,6 +23,7 @@ spring:
     servlet:
       content-type: text/html
   resources:
+    static-locations: classpath:/static/
     chain:
       strategy:
         content:

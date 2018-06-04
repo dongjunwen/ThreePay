@@ -77,7 +77,7 @@ public class OrderController {
         String retCode=respJson.getString("retCode");
         String retMsg=respJson.getString("retMsg");
         String respData="";
-        String viewName="/channel/orderSuccess";
+        String viewName="channel/orderSuccess";
         if("200".equals(retCode)){
             respData=respJson.getString("data");
             logger.info("[订单创建]返回数据:{}",respData);
@@ -95,7 +95,7 @@ public class OrderController {
                 modelAndView.setViewName("error");
             }
         }else{
-             viewName="/channel/error";
+             viewName="channel/error";
         }
         modelAndView.addObject("retMsg",retMsg);
         modelAndView.addObject("respData",respData);

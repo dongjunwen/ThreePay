@@ -62,11 +62,11 @@ public class OrderQueryController {
         String retCode=respJson.getString("retCode");
         String retMsg=respJson.getString("retMsg");
         String respData="";
-        String viewName="/channel/orderSuccess";
+        String viewName="channel/orderSuccess";
         if("200".equals(retCode)){
             respData=respJson.getString("data");
         }else{
-             viewName="/channel/error";
+             viewName="channel/error";
         }
         modelAndView.addObject("retMsg",retMsg);
         modelAndView.addObject("respData",respData);

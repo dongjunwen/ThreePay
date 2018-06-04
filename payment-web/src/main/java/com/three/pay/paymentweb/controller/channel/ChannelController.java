@@ -30,7 +30,7 @@ public class ChannelController {
     @RequestMapping("/show")
     public ModelAndView index(ModelMap modelMap){
         ModelAndView modelAndView=new ModelAndView();
-        modelAndView.setViewName("/channel/channelShow");
+        modelAndView.setViewName("channel/channelShow");
         return modelAndView;
     }
 
@@ -39,14 +39,14 @@ public class ChannelController {
         ModelAndView modelAndView=new ModelAndView();
         String orderNo= IDUtils.nextIdStr();
         modelMap.put("orderNo",orderNo);
-        modelAndView.setViewName("/channel/createOrder");
+        modelAndView.setViewName("channel/createOrder");
         return modelAndView;
     }
 
     @RequestMapping("/orderQuery")
     public ModelAndView orderList(ModelMap modelMap){
         ModelAndView modelAndView=new ModelAndView();
-        modelAndView.setViewName("/channel/orderQuery");
+        modelAndView.setViewName("channel/orderQuery");
         return modelAndView;
     }
 
@@ -64,7 +64,7 @@ public class ChannelController {
         logger.info("付款成功后支付单号{},跳转地址:{}",paySeqNo,forwardUrl);
         ModelAndView modelAndView=new ModelAndView();
         modelMap.put("forwardUrl",forwardUrl);
-        modelAndView.setViewName("/channel/successForward");
+        modelAndView.setViewName("channel/successForward");
         return modelAndView;
     }
 }
