@@ -1,18 +1,11 @@
 package com.three.pay.paymentapi.vo.admin;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
 /**
  * @Author:luiz
  * @Date: 2018/6/4 11:15
  * @Descripton:
  * @Modify :
  **/
-@Getter
-@Setter
-@ToString
 public class PageParam {
     //当前页
     private int currPage;
@@ -22,4 +15,37 @@ public class PageParam {
     private String sort;
     //排序字段
     private String orderByField;
+
+    public int getCurrPage() {
+        currPage=currPage==0?currPage:currPage-1;
+        return currPage;
+    }
+
+    public void setCurrPage(int currPage) {
+        this.currPage = currPage;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public String getSort() {
+        return sort;
+    }
+
+    public void setSort(String sort) {
+        this.sort = sort;
+    }
+
+    public String getOrderByField() {
+        return orderByField;
+    }
+
+    public void setOrderByField(String orderByField) {
+        this.orderByField = orderByField;
+    }
 }

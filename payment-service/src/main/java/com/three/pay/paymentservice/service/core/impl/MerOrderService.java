@@ -60,6 +60,6 @@ public class MerOrderService implements IMerOrder {
                     return criteriaBuilder.and(list.toArray(p));
                 }
         };
-        return    payMerPayOrderRepository.findAll(specification,pageable);
+        return  payMerPayOrderRepository.findAll(specification,pageable);
     }
 }
