@@ -5,6 +5,7 @@ import com.three.pay.paymentapi.result.PayResult;
 import com.three.pay.paymentapi.vo.admin.PayOrderCondParam;
 import com.three.pay.paymentapi.vo.admin.PayOrderResult;
 import com.three.pay.paymentcommon.enums.PayStatusEnum;
+import com.three.pay.paymentcommon.utils.DateUtil;
 import com.three.pay.paymentjdbc.entity.MerOrder;
 import com.three.pay.paymentservice.service.core.IMerOrder;
 import org.springframework.beans.BeanUtils;
@@ -35,6 +36,9 @@ public class PayOrderServiceImpl implements IPayOrderService {
             PayOrderResult payOrderResult=new PayOrderResult();
             BeanUtils.copyProperties(merOrder,payOrderResult);
             payOrderResult.setPayStatusName(PayStatusEnum.parse((int)merOrder.getPayStatus()).getName());
+            payOrderResult.setPayTime(DateUtil.getDateTimeFormat(merOrder.getPayTime()));
+            payOrderResult.setCreateTime(DateUtil.getDateTimeFormat(merOrder.getCreateTime()));
+            payOrderResult.setModiTime(DateUtil.getDateTimeFormat(merOrder.getModiTime()));
             payOrderResultList.add(payOrderResult);
         }
         Page payOrderResultPage=new PageImpl(payOrderResultList,merOrderPage.getPageable(),merOrderPage.getTotalElements());
