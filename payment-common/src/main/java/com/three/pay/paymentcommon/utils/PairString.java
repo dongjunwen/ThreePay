@@ -60,10 +60,12 @@ public class PairString {
 
     public static String createLinkString(JSONObject jsonParams){
         String prestr = "";
-        for (Map.Entry<String, Object> entry : jsonParams.entrySet()) {
-            if(entry.getValue()==null) continue;
-            String value = (String) entry.getValue();
-            String key=entry.getKey();
+        List keys = new ArrayList(jsonParams.keySet());
+        Collections.sort(keys);
+        for (int i = 0; i < keys.size(); i++) {
+            String key = (String) keys.get(i);
+            if(jsonParams.get(key)==null) continue;
+            String value = (String) jsonParams.getString(key);
             if ("".equals(prestr)) {//拼接时，不包括最后一个&字符
                 prestr = prestr + key + "=" + value;
             } else {

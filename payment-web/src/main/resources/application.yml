@@ -35,11 +35,11 @@ httpConfig:
   connectTimeout: 3000
   socketTimeout: 5000
 server:
-  port: 9001
+  port: 9006
 gateway:
   alipay:
     url: https://openapi.alipaydev.com/gateway.do
 three:
   pay:
-   notifyUrl: http://111.231.141.23:9002/AlipayNotify/pagePay
-   forwardUrl: http://111.231.141.23:9001/channel/successForward
+   notifyUrl: http://111.231.141.23:9005/AlipayNotify/pagePay
+   forwardUrl: http://111.231.141.23:9006/channel/successForward

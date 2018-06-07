@@ -6,6 +6,8 @@ import com.three.pay.paymentcommon.po.MerOrderPo;
 import com.three.pay.paymentcommon.po.MerPaySeqPo;
 import com.three.pay.paymentcommon.utils.DateUtil;
 import com.three.pay.paymentcommon.utils.HttpClientUtil;
+import com.three.pay.paymentcommon.utils.MD5Util;
+import com.three.pay.paymentcommon.utils.PairString;
 import com.three.pay.paymentweb.form.OrderForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +32,7 @@ import java.util.List;
 @RequestMapping("/channel")
 public class OrderQueryController {
     private static final Logger logger= LoggerFactory.getLogger(OrderQueryController.class);
-    private static final String payUrl="http://localhost:9002/api/trade";
+    private static final String payUrl="http://localhost:9005/api/trade";
 
     @RequestMapping(value = "/orderQuery",method = RequestMethod.POST)
     public ModelAndView createOrder(OrderForm orderForm,
@@ -40,12 +42,9 @@ public class OrderQueryController {
         CommonReqParam commonReqParam=new CommonReqParam();
         commonReqParam.setMerNo("6002111111119");
         commonReqParam.setCharsetCode("utf-8");
-        // commonReqParam.setNotifyUrl("www.baidu.com");
-        //commonReqParam.setProductNo("ALIPAY-SCAN_CODE");
         commonReqParam.setServiceName("QUERY_ORDER");
         commonReqParam.setRequestTime(DateUtil.getDateTimeFormat(new Date()));
-        commonReqParam.setSignType("RSA2");
-        commonReqParam.setSignVlaue("XXXXXXXXXXX");
+        commonReqParam.setSignType("MD5");
         commonReqParam.setVersion("1.0");
 
         MerOrderPo merOrderPo=new MerOrderPo();
@@ -56,6 +55,9 @@ public class OrderQueryController {
         merPaySeqPoList.add(merPaySeqPo);
         merOrderPo.setOrderList(merPaySeqPoList);
         commonReqParam.setReqContent(JSONObject.toJSONString(merOrderPo));
+        String signStr= PairString.createLinkString(JSONObject.parseObject(JSONObject.toJSONString(commonReqParam)));
+        String signValue= MD5Util.getMD5(signStr,"01234567890");
+        commonReqParam.setSignValue(signValue);
         String respStr= HttpClientUtil.doPost(payUrl,JSONObject.toJSONString(commonReqParam));
         logger.info("[订单查询]返回数据:{}",respStr);
         JSONObject respJson=JSONObject.parseObject(respStr);

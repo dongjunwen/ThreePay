@@ -30,6 +30,11 @@ public class MD5Util {
         return s;
     }
 
+    public static String getMD5(String value,String key) {
+        String signStr=value+key;
+        return getMD5(signStr);
+    }
+
     public static void main(String[] args) {
         String md5 = getMD5("abcthm3b10");
         System.out.println(md5);

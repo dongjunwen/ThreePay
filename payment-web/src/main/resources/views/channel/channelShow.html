@@ -1,45 +1,110 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>三人行科技有限公司</title>
+
+    <!-- meta -->
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>三人科技有限公司支付演示界面</title>
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- css -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="css/ionicons.min.css"> -->
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/owl.carousel.css">
+    <link rel="stylesheet" href="/css/owl.theme.css">
+    <link rel="stylesheet" href="/css/owl.transitions.css">
+    <link rel="stylesheet" href="/css/animate.css">
+    <link rel="stylesheet" href="/js/nivo-lightbox/nivo-lightbox.css">
+    <link rel="stylesheet" href="/js/nivo-lightbox/nivo-lightbox-theme.css">
+    <link rel="stylesheet" href="/css/custom.css">
 
-    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
-    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
-    <!--[if lt IE 9]>
-    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
-    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-
+    <!-- js -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/owl.carousel.min.js"></script>
+    <script src="/js/wow.min.js"></script>
+    <script src="/js/jquery.actual.min.js"></script>
 </head>
-<body>
-<div class="container">
-    <h1>三人行支付系统演示界面</h1>
-    <table>
-        <tr>
-            <td><a href="/channel/createOrder">创建订单</a></td>
-        </tr>
-        <tr>
-            <td><a href="/channel/orderQuery">订单查询</a></td>
-        </tr>
-    </table>
 
-</div> <!-- /container -->
+<body data-spy="scroll" data-target="#navbar-example">
+
+<!-- ****************************** Preloader ************************** -->
+<!--<div id="preloader"></div>-->
+
+<div id="wrapper1">
+    <div id="overlay-2">
+        <section id="navigation-scroll">
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-example">
+                            <span class="sr-only">Toggle navigation</span>
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <a class="navbar-brand" href="#">三人支付</a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="navbar-example">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/web/index/#about" class="active">关于</a></li>
+                            <li><a href="/web/index/#our_service">服务项目</a></li>
+                            <li><a href="/web/index/#Meet">团队介绍</a></li>
+                            <li><a href="/web/index/#ScreenShot">产品截图</a></li>
+                            <!--<li><a href="#subscribe">Subscribe</a></li> -->
+                            <li><a href="/web/index/#download">文档下载</a></li>
+                            <!-- <li><a href="#price_table">价格列表</a></li> -->
+                            <!--<li><a href="#testimonial">模拟测试</a></li>-->
+                            <!--<li><a href="#contact">商户注册</a></li>-->
+                            <li><a href="/channel/show">付款演示</a></li>
+                            <li><a href="http://183.194.57.73:19001" target="_blank">后台登录</a></li>
+
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>	<!-- navbar -->
+        </section>	<!-- #navigation -->
+        <section style="padding:60px 0;height:1000px">
+            <div class="container">
+                <div class="row text-center heading">
+                    <div class="wow animated zoomInDown heading-text">
+                        <h3>付款演示</h3>
+                        <hr class="full">
+                        <br/>
+                    </div>
+                </div>	<!-- row -->
+            <div>
+                <table>
+                    <tr>
+                        <td><a href="/channel/createOrder">创建订单</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/channel/orderQuery">订单查询</a></td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+    </div>
+</div>
+
+        <!-- footer -->
+        <section id="footer" class="main-footer">
+            <div class="container">
+                <p>Copyright &copy; 2018.三人行科技有限公司 All rights reserved.</p>
+                <a href="#starting" class="up"><i class="fa fa-arrow-circle-up"></i></a>
+            </div>
+        </section><!-- footer -->
 
 
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+        <script src="/js/jquery-ui-1.10.3.min.js"></script>
+        <script src="/js/jquery.knob.js"></script>
+        <script src="/js/daterangepicker.js"></script>
+        <script src="/js/bootstrap3-wysihtml5.all.min.js"></script>
+        <script src="/js/smoothscroll.js"></script>
+        <script src="/js/nivo-lightbox/nivo-lightbox.min.js"></script>
+      <!--  <script src="/js/script.js"></script>-->
 
 </body>
 </html>

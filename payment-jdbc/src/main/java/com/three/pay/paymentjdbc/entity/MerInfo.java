@@ -16,6 +16,8 @@ public class MerInfo {
   @Column(name = "mer_name")
   private String merName;
   private String status;
+  @Column(name = "valid_key")
+  private String validKey;
   private long version;
   @Column(name = "create_time")
   private java.sql.Timestamp createTime;
@@ -85,4 +87,11 @@ public class MerInfo {
     this.modiTime = modiTime;
   }
 
+  public String getValidKey() {
+    return validKey;
+  }
+
+  public void setValidKey(String validKey) {
+    this.validKey = validKey;
+  }
 }

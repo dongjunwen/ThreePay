@@ -6,6 +6,8 @@ import com.three.pay.paymentcommon.po.MerOrderPo;
 import com.three.pay.paymentcommon.po.MerPaySeqPo;
 import com.three.pay.paymentcommon.utils.DateUtil;
 import com.three.pay.paymentcommon.utils.HttpClientUtil;
+import com.three.pay.paymentcommon.utils.MD5Util;
+import com.three.pay.paymentcommon.utils.PairString;
 import com.three.pay.paymentweb.form.OrderForm;
 import com.three.pay.paymentweb.utils.IpUtils;
 import org.slf4j.Logger;
@@ -33,7 +35,8 @@ import java.util.List;
 @RequestMapping("/channel")
 public class OrderController {
     private static final Logger logger= LoggerFactory.getLogger(OrderController.class);
-    private static final String payUrl="http://111.231.141.23:9002/api/trade";
+    //private static final String payUrl="http://111.231.141.23:9002/api/trade";
+    private static final String payUrl="http://localhost:9005/api/trade";
 
     @RequestMapping(value = "/submitOrder",method = RequestMethod.POST)
     public ModelAndView createOrder(OrderForm orderForm,
@@ -47,8 +50,7 @@ public class OrderController {
         commonReqParam.setNotifyUrl("http://www.baidu.com");
         commonReqParam.setServiceName("UNION_CREATE_ORDER");
         commonReqParam.setRequestTime(DateUtil.getDateTimeFormat(new Date()));
-        commonReqParam.setSignType("RSA2");
-        commonReqParam.setSignVlaue("XXXXXXXXXXX");
+        commonReqParam.setSignType("MD5");
         commonReqParam.setVersion("1.0");
 
         MerOrderPo merOrderPo=new MerOrderPo();
@@ -58,7 +60,6 @@ public class OrderController {
         merOrderPo.setPayAmt(orderForm.getPayAmt());
         merOrderPo.setEquipIp(IpUtils.getIpAddr(request));
         merOrderPo.setEquipType("WEB");
-        merOrderPo.setEquipNo("00000");
         merOrderPo.setGoodsName(orderForm.getGoodsName());
         merOrderPo.setUserNo("NONE");
         MerPaySeqPo merPaySeqPo=new MerPaySeqPo();
@@ -67,11 +68,12 @@ public class OrderController {
         List<MerPaySeqPo> merPaySeqPoList=new ArrayList<MerPaySeqPo>();
         merPaySeqPoList.add(merPaySeqPo);
         merOrderPo.setOrderList(merPaySeqPoList);
-        //merOrderPo.setGoodsList();
-        merOrderPo.setResv1("001");
-        merOrderPo.setResv2("002");
-        merOrderPo.setResv3("003");
+
+
         commonReqParam.setReqContent(JSONObject.toJSONString(merOrderPo));
+        String signStr= PairString.createLinkString(JSONObject.parseObject(JSONObject.toJSONString(commonReqParam)));
+        String signValue=MD5Util.getMD5(signStr,"01234567890");
+        commonReqParam.setSignValue(signValue);
         String respStr= HttpClientUtil.doPost(payUrl,JSONObject.toJSONString(commonReqParam));
         JSONObject respJson=JSONObject.parseObject(respStr);
         String retCode=respJson.getString("retCode");

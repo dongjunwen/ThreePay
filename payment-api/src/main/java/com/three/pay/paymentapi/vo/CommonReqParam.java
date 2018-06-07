@@ -39,7 +39,7 @@ public class CommonReqParam {
     @NotBlank(message = "签名值不能为空")
     @Length(min = 1,max = 256,message = "签名值不能超过256")
     @ApiModelProperty(value = "签名值",required =true )
-    private String signVlaue;
+    private String signValue;
     @NotBlank(message = "请求时间不能为空")
     @Length(min = 19,max = 19,message = "请求时间长度为19")
     @ApiModelProperty(value = "请求时间",required =true )

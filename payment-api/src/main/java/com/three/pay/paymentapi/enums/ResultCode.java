@@ -16,9 +16,9 @@ public enum ResultCode {
     COMMON_DATA_EXISTS("1003", "数据已存在"),
     COMMON_DATA_NOT_EXISTS("1004", "数据不存在"),
     COMMON_QUERY_ERROR("1005", "数据执行SQL查询错误"),
-    COMMON_RULE_ERROR("1006", "规则校验失败"),
-    COMMON_DULIICATE_SUBMIT("1007", "重复提交"),
-    COMMON_AUDIT_STAUS_ERROR("1008","不符合申请条件"),
+    VALIDATE_ERROR("1006", "签名校验错误"),
+    VALIDATE_TYPE_NOT_EXISTS("1007", "签名校验错误"),
+    COMMON_DULIICATE_SUBMIT("1008", "重复提交"),
 
     //基础资料 1100-1199
     SERVICE_NOT_EXISTS("1100","服务不存在"),

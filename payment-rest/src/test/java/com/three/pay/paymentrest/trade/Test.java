@@ -26,7 +26,7 @@ public class Test {
         commonReqParam.setServiceName("UNION_CREATE_ORDER");
         commonReqParam.setRequestTime(DateUtil.getDateTimeFormat(new Date()));
         commonReqParam.setSignType("RSA");
-        commonReqParam.setSignVlaue("XXXXXXXXXXX");
+        commonReqParam.setSignValue("XXXXXXXXXXX");
         commonReqParam.setVersion("1.0");
 
         MerOrderPo merOrderPo=new MerOrderPo();
