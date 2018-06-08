@@ -63,6 +63,13 @@ public class MerOrderPo {
     @Length(max = 256,message = "扩展参数3不能超过256")
     @ApiModelProperty(value = "保留域3",required =false )
     private String resv3;
+    @Length(max = 6,message = "扩展参数3不能超过256")
+    @ApiModelProperty(value = "该笔订单允许的最晚付款时间",required =false )
+    /**
+     * 取值范围：1m～15d。m-分钟，h-小时，d-天，1c-当天（1c-当天的情况下，无论交易何时创建，都在0点关闭）。
+     * 该参数数值不接受小数点， 如 1.5h，可转换为 90m
+     */
+    private String timeOutExpress;
     @NotNull(message = "订单列表不能为空")
     @ApiModelProperty(value = "订单列表",required =true )
     private List<MerPaySeqPo> orderList;

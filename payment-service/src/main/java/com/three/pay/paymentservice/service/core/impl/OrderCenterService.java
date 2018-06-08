@@ -9,6 +9,7 @@ import com.three.pay.paymentcommon.po.MerOrderPo;
 import com.three.pay.paymentcommon.po.MerOrderQueryPo;
 import com.three.pay.paymentcommon.po.MerPaySeqPo;
 import com.three.pay.paymentcommon.po.notify.NotifyPayParamPo;
+import com.three.pay.paymentcommon.utils.DateUtil;
 import com.three.pay.paymentcommon.utils.IDUtils;
 import com.three.pay.paymentjdbc.entity.MerOrder;
 import com.three.pay.paymentjdbc.entity.PayOrderDetail;
@@ -18,6 +19,7 @@ import com.three.pay.paymentjdbc.respository.PayOrderDetailRep;
 import com.three.pay.paymentjdbc.respository.PayTradeTotalRep;
 import com.three.pay.paymentservice.service.core.IMerOrderDetail;
 import com.three.pay.paymentservice.service.core.IOrderCenter;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -112,8 +115,9 @@ public class OrderCenterService implements IOrderCenter {
         payOrderDetail.setGoodsDesc(merOrderPo.getGoodsName());
         payOrderDetail.setCurrencyType("CNY");
         payOrderDetail.setPayFee(merChannelInfo.getChannelFee());
-        payOrderDetail.setStartTime(new java.sql.Timestamp(nowDate.getTime()));
-        //payOrderDetail.setEndTime();//todo
+        payOrderDetail.setStartTime(new java.sql.Timestamp(nowDate.getTime()));//订单开始时间
+        Date endDate=calEndTime(nowDate,merOrderPo.getTimeOutExpress());
+        payOrderDetail.setEndTime(new java.sql.Timestamp(endDate.getTime()));//订单失效时间
         payOrderDetail.setEquipIp(merOrderPo.getEquipIp());
         payOrderDetail.setEquipType(merOrderPo.getEquipType());
         payOrderDetail.setEquipNo(merOrderPo.getEquipNo());
@@ -125,6 +129,35 @@ public class OrderCenterService implements IOrderCenter {
         merChannelInfo.setInnerTradeNo(tradeNo);
         merChannelInfo.setInnerSeqNo(paySeqNo);
         merChannelInfo.setTradeType(TradeTypeEnum.PAY.getCode());
+    }
+
+    /**
+     * 计算订单失效时间
+     * @param nowDate
+     * @param timeOutExpress
+     * @return
+     */
+    private Date calEndTime(Date nowDate,String timeOutExpress) {
+        //根据失效时间 计算结束时间
+        int seconds=30*60;//默认30分钟关闭
+        Date endDate= DateUtil.addDate(nowDate,seconds);
+        if(StringUtils.isNotEmpty(timeOutExpress)){
+            String endStr=timeOutExpress.substring(timeOutExpress.length()-1,timeOutExpress.length());
+            String startStr=timeOutExpress.substring(0,timeOutExpress.length()-1);
+            int startNum=Integer.valueOf(startStr).intValue();
+            if("m".equals(endStr)){
+                seconds=startNum*60;
+            }else if("h".equals(endStr)){
+                seconds=startNum*60*60;
+            }else if("d".equals(endStr)){
+                seconds=startNum*60*60*24;
+            }
+            endDate=DateUtil.addDate(nowDate,seconds);
+            if("1c".equals(endStr)){
+                endDate=DateUtil.getNowDateEnd();
+            }
+        }
+        return endDate;
     }
 
     @Override

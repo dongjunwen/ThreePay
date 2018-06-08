@@ -14,6 +14,7 @@ import com.three.pay.paymentcommon.enums.ChannelActionEnum;
 import com.three.pay.paymentcommon.enums.ChannelCodeEnum;
 import com.three.pay.paymentcommon.enums.PayStatusEnum;
 import com.three.pay.paymentcommon.po.MerOrderQueryPo;
+import com.three.pay.paymentcommon.utils.DateUtil;
 import com.three.pay.paymentjdbc.entity.PayOrderDetail;
 import com.three.pay.paymentservice.service.channel.IChannelService;
 import com.three.pay.paymentservice.service.core.IChannelRouteCenter;
@@ -23,6 +24,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 /**
  * @Author:luiz
@@ -69,7 +72,9 @@ public class MerOrderQueryImpl implements ITradeProcess {
                      //更新
                      PayOrderDetail payOrderDetail1=JSONObject.parseObject(respJson,PayOrderDetail.class);
                      iOrderCenter.updateOrder(payOrderDetail1);
-                 }else if(ChannelCodeEnum.TRADE_NOT_EXIST.getCode().equals(channelRespParam.getRespCode())){
+                 }else if(ChannelCodeEnum.TRADE_NOT_EXIST.getCode().equals(channelRespParam.getRespCode())
+                         && DateUtil.date1AfterDate2(new Date(),payOrderDetail.getEndTime())
+                         ){
                      respJson=channelRespParam.getRespContent();
                      //更新,关闭改订单
                      PayOrderDetail payOrderDetail1=JSONObject.parseObject(respJson,PayOrderDetail.class);

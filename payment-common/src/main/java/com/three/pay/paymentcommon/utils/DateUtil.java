@@ -9,6 +9,7 @@ package com.three.pay.paymentcommon.utils;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -186,6 +187,16 @@ public class DateUtil {
      */
     public static String getNowDateEndStr() {
         return dateFormat.format(new Date())+" 23:59:59";
+    }
+
+    /**
+     * 获取当前日期(yyyy-MM-dd)
+     *
+     * @return
+     */
+    public static Date getNowDateEnd() {
+       String nowDateEnd = getNowDateEndStr();
+       return getDateTimeFormat(nowDateEnd);
     }
 
     /**
@@ -397,5 +408,15 @@ public class DateUtil {
         Calendar c = Calendar.getInstance();
         c.add(Calendar.MONTH, -monty);
         return c.getTime();
+    }
+
+    /**
+     * date1是否比date2晚
+     * @param date1
+     * @param date2
+     * @return
+     */
+    public static boolean date1AfterDate2(Date date1, Timestamp date2) {
+        return  date1.compareTo(date2)==1;
     }
 }
