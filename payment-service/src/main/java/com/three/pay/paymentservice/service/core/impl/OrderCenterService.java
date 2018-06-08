@@ -5,7 +5,7 @@ import com.three.pay.paymentcommon.dto.MerChannelInfo;
 import com.three.pay.paymentcommon.enums.PayStatusEnum;
 import com.three.pay.paymentcommon.enums.TradeStatusEnum;
 import com.three.pay.paymentcommon.enums.TradeTypeEnum;
-import com.three.pay.paymentcommon.po.MerOrderPo;
+import com.three.pay.paymentcommon.po.MerUnionOrderPo;
 import com.three.pay.paymentcommon.po.MerOrderQueryPo;
 import com.three.pay.paymentcommon.po.MerPaySeqPo;
 import com.three.pay.paymentcommon.po.notify.NotifyPayParamPo;
@@ -51,10 +51,10 @@ public class OrderCenterService implements IOrderCenter {
 
     @Override
     @Transactional
-    public void createOrder(MerChannelInfo merChannelInfo, CommonReqParam commonReqVo, MerOrderPo merOrderPo) {
+    public void createOrder(MerChannelInfo merChannelInfo, CommonReqParam commonReqVo, MerUnionOrderPo merUnionOrderPo) {
         String tradeNo=IDUtils.genIdStr("D");
         List<MerOrder> merOrderList=new ArrayList<MerOrder>();
-        List<MerPaySeqPo> merPaySeqPos= merOrderPo.getOrderList();
+        List<MerPaySeqPo> merPaySeqPos= merUnionOrderPo.getOrderList();
         BigDecimal tradeAmt=BigDecimal.ZERO;
         java.util.Date nowDate=new java.util.Date();
 
@@ -62,23 +62,23 @@ public class OrderCenterService implements IOrderCenter {
             MerOrder merOrder=new MerOrder();
             merOrder.setMerNo(merChannelInfo.getMerNo());
             merOrder.setMerName(merChannelInfo.getMerName());
-            merOrder.setEquipIp(merOrderPo.getEquipIp());
-            merOrder.setEquipType(merOrderPo.getEquipType());
-            merOrder.setEquipNo(merOrderPo.getEquipNo());
-            merOrder.setMerOrderNo(merPaySeqPo.getOrderNo());
+            merOrder.setEquipIp(merUnionOrderPo.getEquipIp());
+            merOrder.setEquipType(merUnionOrderPo.getEquipType());
+            merOrder.setEquipNo(merUnionOrderPo.getEquipNo());
+            merOrder.setMerOrderNo(merPaySeqPo.getMerOrderNo());
             merOrder.setMerPaySeq(merPaySeqPo.getMerPaySeq());
-            merOrder.setPayNo(merPaySeqPo.getOrderNo()+"_"+merPaySeqPo.getMerPaySeq());
+            merOrder.setPayNo(merPaySeqPo.getMerOrderNo()+"_"+merPaySeqPo.getMerPaySeq());
             merOrder.setPayTime(new java.sql.Timestamp(nowDate.getTime()));
-            merOrder.setProductNo(merOrderPo.getProductNo());
-            merOrder.setPayAmt(new BigDecimal(merOrderPo.getPayAmt()));
-            merOrder.setOrderAmt(new BigDecimal(merOrderPo.getOrderAmt()));
-            merOrder.setDiscountAmt(new BigDecimal(merOrderPo.getDiscountAmt()));
-            merOrder.setUserNo(merOrderPo.getUserNo());
-            merOrder.setResv1(merOrderPo.getResv1());
-            merOrder.setResv2(merOrderPo.getResv2());
-            merOrder.setResv3(merOrderPo.getResv3());
+            merOrder.setProductNo(merUnionOrderPo.getProductNo());
+            merOrder.setPayAmt(new BigDecimal(merUnionOrderPo.getPayAmt()));
+            merOrder.setOrderAmt(new BigDecimal(merUnionOrderPo.getOrderAmt()));
+            merOrder.setDiscountAmt(new BigDecimal(merUnionOrderPo.getDiscountAmt()));
+            merOrder.setUserNo(merUnionOrderPo.getUserNo());
+            merOrder.setResv1(merUnionOrderPo.getResv1());
+            merOrder.setResv2(merUnionOrderPo.getResv2());
+            merOrder.setResv3(merUnionOrderPo.getResv3());
             merOrder.setTradeNo(tradeNo);
-            tradeAmt=tradeAmt.add(new BigDecimal(merOrderPo.getPayAmt()));
+            tradeAmt=tradeAmt.add(new BigDecimal(merUnionOrderPo.getPayAmt()));
             merOrder.setCreateTime(new java.sql.Timestamp(nowDate.getTime()));
             merOrder.setModiTime(new java.sql.Timestamp(nowDate.getTime()));
             merOrderList.add(merOrder);
@@ -90,7 +90,7 @@ public class OrderCenterService implements IOrderCenter {
         payTradeTotal.setMerNo(merChannelInfo.getMerNo());
         payTradeTotal.setMerName(merChannelInfo.getMerName());
         payTradeTotal.setTradeTime(new java.sql.Timestamp(nowDate.getTime()));
-        payTradeTotal.setUserNo(merOrderPo.getUserNo());
+        payTradeTotal.setUserNo(merUnionOrderPo.getUserNo());
         payTradeTotal.setTradeType(TradeTypeEnum.PAY.getCode());
         payTradeTotal.setTradeStatus(TradeStatusEnum.INIT.getCode());
         payTradeTotal.setCreateTime(new java.sql.Timestamp(nowDate.getTime()));
@@ -103,7 +103,7 @@ public class OrderCenterService implements IOrderCenter {
         payOrderDetail.setPaySeqNo(paySeqNo);
         payOrderDetail.setPayStatus(PayStatusEnum.PAY_INIT.getCode());
         payOrderDetail.setPayAmt(tradeAmt);
-        payOrderDetail.setUserNo(merOrderPo.getUserNo());
+        payOrderDetail.setUserNo(merUnionOrderPo.getUserNo());
         payOrderDetail.setMerNo(merChannelInfo.getMerNo());
         payOrderDetail.setMerName(merChannelInfo.getMerName());
         payOrderDetail.setPayWay(merChannelInfo.getPayWay());
@@ -111,16 +111,16 @@ public class OrderCenterService implements IOrderCenter {
         payOrderDetail.setChannelName(merChannelInfo.getChannelName());
         payOrderDetail.setChannelPartenerNo(merChannelInfo.getChannelPartenerNo());
         payOrderDetail.setChannelPartenerName(merChannelInfo.getChannelPartenerName());
-        payOrderDetail.setGoodsName(merOrderPo.getGoodsName());
-        payOrderDetail.setGoodsDesc(merOrderPo.getGoodsName());
+        payOrderDetail.setGoodsName(merUnionOrderPo.getGoodsName());
+        payOrderDetail.setGoodsDesc(merUnionOrderPo.getGoodsName());
         payOrderDetail.setCurrencyType("CNY");
         payOrderDetail.setPayFee(merChannelInfo.getChannelFee());
         payOrderDetail.setStartTime(new java.sql.Timestamp(nowDate.getTime()));//订单开始时间
-        Date endDate=calEndTime(nowDate,merOrderPo.getTimeOutExpress());
+        Date endDate=calEndTime(nowDate, merUnionOrderPo.getTimeOutExpress());
         payOrderDetail.setEndTime(new java.sql.Timestamp(endDate.getTime()));//订单失效时间
-        payOrderDetail.setEquipIp(merOrderPo.getEquipIp());
-        payOrderDetail.setEquipType(merOrderPo.getEquipType());
-        payOrderDetail.setEquipNo(merOrderPo.getEquipNo());
+        payOrderDetail.setEquipIp(merUnionOrderPo.getEquipIp());
+        payOrderDetail.setEquipType(merUnionOrderPo.getEquipType());
+        payOrderDetail.setEquipNo(merUnionOrderPo.getEquipNo());
         payOrderDetail.setNotifyUrl(commonReqVo.getNotifyUrl());
         payOrderDetail.setForwardUrl(commonReqVo.getForwardUrl());
         payOrderDetail.setCreateTime(new java.sql.Timestamp(nowDate.getTime()));
@@ -252,7 +252,7 @@ public class OrderCenterService implements IOrderCenter {
         List<MerPaySeqPo> merPaySeqPos= merOrderQueryPo.getOrderList();
         List<String> merOrderConds=new ArrayList<String>();
         for(MerPaySeqPo merPaySeqPo:merPaySeqPos){
-            String uniqNo=merPaySeqPo.getOrderNo()+"_"+merPaySeqPo.getMerPaySeq();
+            String uniqNo=merPaySeqPo.getMerOrderNo()+"_"+merPaySeqPo.getMerPaySeq();
             merOrderConds.add(uniqNo);
         }
         List<MerOrder> merOrders= merOrderRep.findByPayNos(merOrderConds);

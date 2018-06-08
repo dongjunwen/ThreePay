@@ -14,4 +14,6 @@ public class AlipayConstant {
     public static final String INVALID_PARAMETER="ACQ.INVALID_PARAMETER";
     public static final String TRADE_NOT_EXIST="ACQ.TRADE_NOT_EXIST";
 
+    public static final String SELLER_BANLANCE_NOT_ENOUGH="ACQ.SELLER_BALANCE_NOT_ENOUGH";
+
 }

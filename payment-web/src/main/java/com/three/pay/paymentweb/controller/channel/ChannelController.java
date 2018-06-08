@@ -50,6 +50,20 @@ public class ChannelController {
         return modelAndView;
     }
 
+    @RequestMapping("/refundOrder")
+    public ModelAndView refundOrder(ModelMap modelMap){
+        ModelAndView modelAndView=new ModelAndView();
+        modelAndView.setViewName("channel/refundOrder");
+        return modelAndView;
+    }
+
+    @RequestMapping("/refundQuery")
+    public ModelAndView refundQuery(ModelMap modelMap){
+        ModelAndView modelAndView=new ModelAndView();
+        modelAndView.setViewName("channel/refundQuery");
+        return modelAndView;
+    }
+
     @RequestMapping("/successForward")
     public ModelAndView successForward(HttpServletRequest request,ModelMap modelMap){
         //1.校验

@@ -2,7 +2,7 @@ package com.three.pay.paymentweb.controller.channel;
 
 import com.alibaba.fastjson.JSONObject;
 import com.three.pay.paymentapi.vo.CommonReqParam;
-import com.three.pay.paymentcommon.po.MerOrderPo;
+import com.three.pay.paymentcommon.po.MerUnionOrderPo;
 import com.three.pay.paymentcommon.po.MerPaySeqPo;
 import com.three.pay.paymentcommon.utils.DateUtil;
 import com.three.pay.paymentcommon.utils.HttpClientUtil;
@@ -47,14 +47,14 @@ public class OrderQueryController {
         commonReqParam.setSignType("MD5");
         commonReqParam.setVersion("1.0");
 
-        MerOrderPo merOrderPo=new MerOrderPo();
+        MerUnionOrderPo merUnionOrderPo =new MerUnionOrderPo();
         MerPaySeqPo merPaySeqPo=new MerPaySeqPo();
-        merPaySeqPo.setOrderNo(orderForm.getOrderNo());
-        merPaySeqPo.setMerPaySeq(orderForm.getOrderNo());
+        merPaySeqPo.setMerOrderNo(orderForm.getMerOrderNo());
+        merPaySeqPo.setMerPaySeq(orderForm.getMerOrderNo());
         List<MerPaySeqPo> merPaySeqPoList=new ArrayList<MerPaySeqPo>();
         merPaySeqPoList.add(merPaySeqPo);
-        merOrderPo.setOrderList(merPaySeqPoList);
-        commonReqParam.setReqContent(JSONObject.toJSONString(merOrderPo));
+        merUnionOrderPo.setOrderList(merPaySeqPoList);
+        commonReqParam.setReqContent(JSONObject.toJSONString(merUnionOrderPo));
         String signStr= PairString.createLinkString(JSONObject.parseObject(JSONObject.toJSONString(commonReqParam)));
         String signValue= MD5Util.getMD5(signStr,"01234567890");
         commonReqParam.setSignValue(signValue);

@@ -9,7 +9,10 @@ package com.three.pay.paymentapi.enums;
 public enum ServiceNameEnum {
 
     UNION_CREATE_ORDER("UNION_CREATE_ORDER","合并收单接口"),
+    CREATE_ORDER("CREATE_ORDER","收单接口"),
     QUERY_ORDER("QUERY_ORDER","订单查询接口"),
+    REFUND_ORDER("REFUND_ORDER","订单退款接口"),
+    QUERY_REFUND("QUERY_REFUND","退款查询接口"),
     ;
 
     private String code;

@@ -48,9 +48,13 @@ public class MerChannelInfo {
      */
     private String innerTradeNo;
     /**
-     * 本系统流水号
+     * 本系统付款流水号
      */
     private String innerSeqNo;
+    /**
+     * 本系统退款流水号
+     */
+    private String innerRefundSeqNo;
     /**
      * 第三方系统交易流水号
      */
@@ -59,4 +63,12 @@ public class MerChannelInfo {
      * 交易类型
      */
     private int tradeType;
+    /**
+     * 用户号
+     */
+    private String userNo;
+    /**
+     * 支付号
+     */
+    private String payNo;
 }

@@ -1,6 +1,7 @@
 package com.three.pay.paymentservice.service.core.impl;
 
 import com.three.pay.paymentapi.vo.admin.PayOrderCondParam;
+import com.three.pay.paymentcommon.po.MerPaySeqPo;
 import com.three.pay.paymentcommon.utils.DateUtil;
 import com.three.pay.paymentjdbc.entity.MerOrder;
 import com.three.pay.paymentjdbc.respository.MerOrderRepository;
@@ -30,7 +31,7 @@ import java.util.List;
 @Service
 public class MerOrderService implements IMerOrder {
     @Autowired
-    private MerOrderRepository payMerPayOrderRepository;
+    private MerOrderRepository merPayOrderRepository;
 
     @Override
     public Page<MerOrder> findPage(PayOrderCondParam payOrderCondParam) {
@@ -60,6 +61,11 @@ public class MerOrderService implements IMerOrder {
                     return criteriaBuilder.and(list.toArray(p));
                 }
         };
-        return  payMerPayOrderRepository.findAll(specification,pageable);
+        return  merPayOrderRepository.findAll(specification,pageable);
+    }
+
+    @Override
+    public MerOrder queryOrder(MerPaySeqPo merPaySeqPo) {
+        return merPayOrderRepository.findByMerOrderNoAndMerPaySeq(merPaySeqPo.getMerOrderNo(),merPaySeqPo.getMerPaySeq());
     }
 }

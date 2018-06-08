@@ -9,10 +9,8 @@ import com.three.pay.paymentapi.result.PayResult;
 import com.three.pay.paymentapi.vo.CommonReqParam;
 import com.three.pay.paymentchannel.param.ChannelRespParam;
 import com.three.pay.paymentcommon.dto.MerChannelInfo;
-import com.three.pay.paymentcommon.po.MerOrderPo;
-import com.three.pay.paymentcommon.po.MerOrderQueryPo;
-import com.three.pay.paymentcommon.po.MerPaySeqPo;
 import com.three.pay.paymentcommon.po.MerUnionOrderPo;
+import com.three.pay.paymentcommon.po.MerOrderQueryPo;
 import com.three.pay.paymentjdbc.entity.PayOrderDetail;
 import com.three.pay.paymentservice.service.channel.IChannelService;
 import com.three.pay.paymentservice.service.core.IChannelRouteCenter;
@@ -24,19 +22,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @Author:luiz
  * @Date: 2018/5/25 16:38
  * @Descripton: 创建订单统一处理
- * 业务方负责合并订单，支付流水号全局唯一。
+ * 多订单合并支付，适合电商场景
  * @Modify :
  **/
 @Service
-public class MerOrderImpl implements ITradeProcess {
-    private static final Logger logger= LoggerFactory.getLogger(MerOrderImpl.class);
+public class MerUnionOrderImpl implements ITradeProcess {
+    private static final Logger logger= LoggerFactory.getLogger(MerUnionOrderImpl.class);
     @Autowired
     IChannelRouteCenter iChannelRouteCenter;
     @Autowired
@@ -49,7 +44,7 @@ public class MerOrderImpl implements ITradeProcess {
 
     @Override
     public boolean isSupport(ServiceNameEnum serviceNameEnum) {
-        return ServiceNameEnum.CREATE_ORDER.equals(serviceNameEnum);
+        return ServiceNameEnum.UNION_CREATE_ORDER.equals(serviceNameEnum);
     }
 
     @Override
@@ -58,24 +53,18 @@ public class MerOrderImpl implements ITradeProcess {
         try{
             //1.参数校验
             String reqContent=commonReqVo.getReqContent();
-            MerOrderPo merOrderPo = JSON.parseObject(reqContent, MerOrderPo.class);
-            ValidatorUtil.validateEntity(merOrderPo);
+            MerUnionOrderPo merUnionOrderPo = JSON.parseObject(reqContent, MerUnionOrderPo.class);
+            ValidatorUtil.validateEntity(merUnionOrderPo);
             MerOrderQueryPo merOrderQueryPo=new MerOrderQueryPo();
-            List<MerPaySeqPo> merPaySeqPos=new ArrayList<>();
-            MerPaySeqPo merPaySeqPo=new MerPaySeqPo();
-            merPaySeqPo.setMerPaySeq(merOrderPo.getMerPaySeqNo());
-            merPaySeqPos.add(merPaySeqPo);
-            merOrderQueryPo.setOrderList(merPaySeqPos);
+            merOrderQueryPo.setOrderList(merUnionOrderPo.getOrderList());
             //数据校验是否已存在
             PayOrderDetail oldPayOrderDetail= iOrderCenter.queryOrder(merOrderQueryPo);
             if(oldPayOrderDetail!=null){
                 throw new BusinessException(ResultCode.COMMON_DATA_EXISTS);
             }
             //2.选择渠道路由
-            MerChannelInfo merChannelInfo =iChannelRouteCenter.switchChannelRoute(commonReqVo.getMerNo(), merOrderPo.getProductNo());
+            MerChannelInfo merChannelInfo =iChannelRouteCenter.switchChannelRoute(commonReqVo.getMerNo(), merUnionOrderPo.getProductNo());
             //3.记录数据，生成订单号
-            MerUnionOrderPo merUnionOrderPo = JSON.parseObject(reqContent, MerUnionOrderPo.class);
-            merUnionOrderPo.setOrderList(merPaySeqPos);
             iOrderCenter.createOrder(merChannelInfo,commonReqVo, merUnionOrderPo);
             //4.执行渠道层动作
             ChannelRespParam channelRespParam=iChannelService.channelProcess(merChannelInfo,commonReqVo);
@@ -84,10 +73,10 @@ public class MerOrderImpl implements ITradeProcess {
             //5.返回结果(创建订单后,等待付款)
             payResult.setData(channelRespParam.getRespContent());
         }catch (BusinessException be){
-            logger.error("【创建订单】请求参数:{},发生业务异常:{}",commonReqVo,be);
+            logger.error("【订单统一处理】请求参数:{},发生业务异常:{}",commonReqVo,be);
             payResult.setError(be.getCode(),be.getMsg());
         } catch (Exception e){
-            logger.error("【创建订单】请求参数:{},发生异常:{}",commonReqVo,e);
+            logger.error("【订单统一处理】请求参数:{},发生异常:{}",commonReqVo,e);
             payResult.setError(ResultCode.FAIL.getCode(),e.getMessage());
         }
         return payResult;

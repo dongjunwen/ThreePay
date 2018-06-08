@@ -33,6 +33,12 @@ public enum ResultCode {
     CHANNELDETAIL_NOT_EXISTS("1109","渠道详情不存在"),
     CHANNEL_NOT_EXISTS("1110","渠道不存在"),
 
+    //基础资料 1200-1299
+    ORDER_NOT_PAY("1200","订单尚未支付成功"),
+    REFUND_MORE_THAN_PAY("1201","退款金额大于实际付款金额"),
+    REFUND_OVER_THAN_PAY("1201","退款金额超过实际付款金额"),
+
+
 
     SUCCESS("200","操作成功"),
     FAIL("500","系统异常"),

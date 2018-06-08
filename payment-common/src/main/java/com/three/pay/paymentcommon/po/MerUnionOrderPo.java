@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -19,11 +20,7 @@ import java.util.List;
 @Setter
 @Getter
 @ToString
-public class MerOrderPo {
-    @NotBlank(message = "商户支付流水号不能为空")
-    @Length(min = 1,max = 64,message = "商户支付流水号不能超过64")
-    @ApiModelProperty(value = "商户支付流水号",required =true )
-    private String merPaySeqNo;
+public class MerUnionOrderPo {
     @NotBlank(message = "产品编号不能为空")
     @Length(min = 1,max = 32,message = "产品编号不能超过32")
     @ApiModelProperty(value = "产品编号",required =true )
@@ -73,6 +70,9 @@ public class MerOrderPo {
      * 该参数数值不接受小数点， 如 1.5h，可转换为 90m
      */
     private String timeOutExpress;
+    @NotNull(message = "订单列表不能为空")
+    @ApiModelProperty(value = "订单列表",required =true )
+    private List<MerPaySeqPo> orderList;
     @ApiModelProperty(value = "货物列表",required =false )
     private List<MerGoodPo> goodsList;
 }

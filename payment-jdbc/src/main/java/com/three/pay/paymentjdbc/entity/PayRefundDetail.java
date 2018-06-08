@@ -3,6 +3,8 @@ package com.three.pay.paymentjdbc.entity;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 @Entity
 @Component
@@ -22,7 +24,7 @@ public class PayRefundDetail {
   @Column(name = "refund_way")
   private String refundWay;
   @Column(name = "refund_amt")
-  private double refundAmt;
+  private BigDecimal refundAmt;
   @Column(name = "refund_status")
   private long refundStatus;
   @Column(name = "refund_desc")
@@ -35,6 +37,22 @@ public class PayRefundDetail {
   private String onceStr;
   @Column(name = "forward_url")
   private String forwardUrl;
+
+  @Column(name = "payler_acct")
+  private String paylerAcct;
+  @Column(name = "seller_acct")
+  private String sellerAcct;
+  @Column(name = "refund_currency")
+  private String refundCurrency;
+  @Column(name = "refund_success_time")
+  private java.sql.Timestamp refundSuccessTime;
+  @Column(name = "buy_refund_amt")
+  private BigDecimal buyRefundAmt;
+  @Column(name = "third_refund_discount_amt")
+  private BigDecimal thirdRefundDiscountAmt;
+  @Column(name = "mer_refund_discount_amt")
+  private BigDecimal merRefundDiscountAmt;
+
   @Column(name = "resp_refund_no")
   private String respRefundNo;
   @Column(name = "mer_no")
@@ -111,11 +129,11 @@ public class PayRefundDetail {
   }
 
 
-  public double getRefundAmt() {
+  public BigDecimal getRefundAmt() {
     return refundAmt;
   }
 
-  public void setRefundAmt(double refundAmt) {
+  public void setRefundAmt(BigDecimal refundAmt) {
     this.refundAmt = refundAmt;
   }
 
@@ -263,4 +281,59 @@ public class PayRefundDetail {
     this.modiTime = modiTime;
   }
 
+  public String getPaylerAcct() {
+    return paylerAcct;
+  }
+
+  public void setPaylerAcct(String paylerAcct) {
+    this.paylerAcct = paylerAcct;
+  }
+
+  public String getSellerAcct() {
+    return sellerAcct;
+  }
+
+  public void setSellerAcct(String sellerAcct) {
+    this.sellerAcct = sellerAcct;
+  }
+
+  public String getRefundCurrency() {
+    return refundCurrency;
+  }
+
+  public void setRefundCurrency(String refundCurrency) {
+    this.refundCurrency = refundCurrency;
+  }
+
+  public Timestamp getRefundSuccessTime() {
+    return refundSuccessTime;
+  }
+
+  public void setRefundSuccessTime(Timestamp refundSuccessTime) {
+    this.refundSuccessTime = refundSuccessTime;
+  }
+
+  public BigDecimal getBuyRefundAmt() {
+    return buyRefundAmt;
+  }
+
+  public void setBuyRefundAmt(BigDecimal buyRefundAmt) {
+    this.buyRefundAmt = buyRefundAmt;
+  }
+
+  public BigDecimal getThirdRefundDiscountAmt() {
+    return thirdRefundDiscountAmt;
+  }
+
+  public void setThirdRefundDiscountAmt(BigDecimal thirdRefundDiscountAmt) {
+    this.thirdRefundDiscountAmt = thirdRefundDiscountAmt;
+  }
+
+  public BigDecimal getMerRefundDiscountAmt() {
+    return merRefundDiscountAmt;
+  }
+
+  public void setMerRefundDiscountAmt(BigDecimal merRefundDiscountAmt) {
+    this.merRefundDiscountAmt = merRefundDiscountAmt;
+  }
 }

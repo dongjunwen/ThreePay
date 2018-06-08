@@ -12,4 +12,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  **/
 public interface MerOrderRepository extends JpaRepository<MerOrder,Long>,JpaSpecificationExecutor<MerOrder> {
 
+    MerOrder findByMerOrderNoAndMerPaySeq( String merOrderNo, String merPaySeq);
 }

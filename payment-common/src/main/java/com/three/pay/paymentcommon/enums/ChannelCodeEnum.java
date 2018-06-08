@@ -10,6 +10,7 @@ public enum ChannelCodeEnum {
     SUCCESS("0000","成功"),
 
     TRADE_NOT_EXIST("1001","查询交易不存在"),
+    NOT_ENOUGH("1002","卖家余额不足，导致退款失败，可重新发起"),
     SIGN_VALID_FAIL("9001","签名校验失败"),
     FAIL("9999","失败");
 

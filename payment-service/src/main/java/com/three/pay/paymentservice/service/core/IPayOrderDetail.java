@@ -10,4 +10,5 @@ import com.three.pay.paymentjdbc.entity.PayOrderDetail;
  **/
 public interface IPayOrderDetail {
     PayOrderDetail findByUniqIndex(String paySeqNo);
+    PayOrderDetail findByTradeNo(String tradeNo);
 }

@@ -2,7 +2,7 @@ package com.three.pay.paymentrest.trade;
 
 import com.alibaba.fastjson.JSONObject;
 import com.three.pay.paymentapi.vo.CommonReqParam;
-import com.three.pay.paymentcommon.po.MerOrderPo;
+import com.three.pay.paymentcommon.po.MerUnionOrderPo;
 import com.three.pay.paymentcommon.po.MerPaySeqPo;
 import com.three.pay.paymentcommon.utils.DateUtil;
 
@@ -29,28 +29,28 @@ public class Test {
         commonReqParam.setSignValue("XXXXXXXXXXX");
         commonReqParam.setVersion("1.0");
 
-        MerOrderPo merOrderPo=new MerOrderPo();
-        merOrderPo.setProductNo("ALIPAY-SCAN_CODE");
-        merOrderPo.setDiscountAmt("0.01");
-        merOrderPo.setOrderAmt("0.02");
-        merOrderPo.setPayAmt("0.01");
-        merOrderPo.setEquipIp("192.168.1.1");
-        merOrderPo.setEquipType("IOS");
-        merOrderPo.setEquipNo("XXXXXXXXXXX001");
-        merOrderPo.setGoodsName("小当家");
-        merOrderPo.setUserNo("TH0001");
+        MerUnionOrderPo merUnionOrderPo =new MerUnionOrderPo();
+        merUnionOrderPo.setProductNo("ALIPAY-SCAN_CODE");
+        merUnionOrderPo.setDiscountAmt("0.01");
+        merUnionOrderPo.setOrderAmt("0.02");
+        merUnionOrderPo.setPayAmt("0.01");
+        merUnionOrderPo.setEquipIp("192.168.1.1");
+        merUnionOrderPo.setEquipType("IOS");
+        merUnionOrderPo.setEquipNo("XXXXXXXXXXX001");
+        merUnionOrderPo.setGoodsName("小当家");
+        merUnionOrderPo.setUserNo("TH0001");
         MerPaySeqPo merPaySeqPo=new MerPaySeqPo();
-        merPaySeqPo.setOrderNo("2018053000000000001");
+        merPaySeqPo.setMerOrderNo("2018053000000000001");
         merPaySeqPo.setMerPaySeq("2018053000000000001");
         List<MerPaySeqPo> merPaySeqPoList=new ArrayList<MerPaySeqPo>();
         merPaySeqPoList.add(merPaySeqPo);
-        merOrderPo.setOrderList(merPaySeqPoList);
+        merUnionOrderPo.setOrderList(merPaySeqPoList);
 
-        //merOrderPo.setGoodsList();
-        merOrderPo.setResv1("001");
-        merOrderPo.setResv2("002");
-        merOrderPo.setResv3("003");
-        commonReqParam.setReqContent(JSONObject.toJSONString(merOrderPo));
+        //merUnionOrderPo.setGoodsList();
+        merUnionOrderPo.setResv1("001");
+        merUnionOrderPo.setResv2("002");
+        merUnionOrderPo.setResv3("003");
+        commonReqParam.setReqContent(JSONObject.toJSONString(merUnionOrderPo));
         System.err.println("commonReqParam:"+JSONObject.toJSONString(commonReqParam));
     }
 }

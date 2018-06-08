@@ -2,7 +2,7 @@ package com.three.pay.paymentservice.service.core;
 
 import com.three.pay.paymentapi.vo.CommonReqParam;
 import com.three.pay.paymentcommon.dto.MerChannelInfo;
-import com.three.pay.paymentcommon.po.MerOrderPo;
+import com.three.pay.paymentcommon.po.MerUnionOrderPo;
 import com.three.pay.paymentcommon.po.MerOrderQueryPo;
 import com.three.pay.paymentcommon.po.notify.NotifyPayParamPo;
 import com.three.pay.paymentjdbc.entity.PayOrderDetail;
@@ -14,7 +14,7 @@ import com.three.pay.paymentjdbc.entity.PayOrderDetail;
  * @Modify :
  **/
 public interface IOrderCenter {
-    void createOrder(MerChannelInfo merChannelInfo, CommonReqParam commonReqVo, MerOrderPo merOrderPo);
+    void createOrder(MerChannelInfo merChannelInfo, CommonReqParam commonReqVo, MerUnionOrderPo merUnionOrderPo);
 
     void notifyOrder(NotifyPayParamPo notifyPayParamPo);
 

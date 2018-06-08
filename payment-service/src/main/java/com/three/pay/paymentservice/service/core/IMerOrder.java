@@ -1,6 +1,7 @@
 package com.three.pay.paymentservice.service.core;
 
 import com.three.pay.paymentapi.vo.admin.PayOrderCondParam;
+import com.three.pay.paymentcommon.po.MerPaySeqPo;
 import com.three.pay.paymentjdbc.entity.MerOrder;
 import org.springframework.data.domain.Page;
 
@@ -13,4 +14,6 @@ import org.springframework.data.domain.Page;
 public interface IMerOrder {
 
     Page<MerOrder> findPage(PayOrderCondParam payOrderCondParam);
+
+    MerOrder queryOrder(MerPaySeqPo merPaySeqPo);
 }

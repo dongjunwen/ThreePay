@@ -73,12 +73,13 @@ public class MerOrderQueryImpl implements ITradeProcess {
                      PayOrderDetail payOrderDetail1=JSONObject.parseObject(respJson,PayOrderDetail.class);
                      iOrderCenter.updateOrder(payOrderDetail1);
                  }else if(ChannelCodeEnum.TRADE_NOT_EXIST.getCode().equals(channelRespParam.getRespCode())
-                         && DateUtil.date1AfterDate2(new Date(),payOrderDetail.getEndTime())
                          ){
-                     respJson=channelRespParam.getRespContent();
                      //更新,关闭改订单
-                     PayOrderDetail payOrderDetail1=JSONObject.parseObject(respJson,PayOrderDetail.class);
-                     iOrderCenter.updateOrder(payOrderDetail1);
+                     if(DateUtil.date1AfterDate2(new Date(),payOrderDetail.getEndTime())){
+                         respJson=channelRespParam.getRespContent();
+                         PayOrderDetail payOrderDetail1=JSONObject.parseObject(respJson,PayOrderDetail.class);
+                         iOrderCenter.updateOrder(payOrderDetail1);
+                     }
                  }else{
                      payResult.setError(channelRespParam.getRespCode(),channelRespParam.getRespMsg());
                      return payResult;

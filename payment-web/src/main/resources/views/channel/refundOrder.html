@@ -7,7 +7,6 @@
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <title>三人科技有限公司支付演示界面</title>
 
-
     <!-- Bootstrap -->
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
@@ -26,18 +25,19 @@
 </head>
 <body>
 <div class="container">
-    <form class="form-signin" action="/channel/orderQuery" method="post" target="_blank">
-        <h2 class="form-signin-heading">输入订单信息并提交</h2>
-        <label for="merOrderNo" class="sr-only">商户订单号</label>
-        <input type="text" id="merOrderNo" name="merOrderNo" class="form-control" placeholder="请输入商户订单号" value="" required autofocus>
+    <form class="form-signin" action="/channel/refundCreate" method="post" target="_blank">
+        <h2 class="form-signin-heading">输入退款信息并提交</h2>
+        <label for="merPaySeq" class="sr-only">支付流水号</label>
+        <input type="text" id="merPaySeq" name="merPaySeq" class="form-control" placeholder="支付流水号" value="" required autofocus>
+        <label for="refundAmt" class="sr-only">退款金额</label>
+        <input type="text" id="refundAmt" name="refundAmt" class="form-control" placeholder="退款金额" value="0.01" required>
+        <label for="refundDesc" class="sr-only">退款原因</label>
+        <input type="text" id="refundDesc" name="refundDesc" class="form-control" placeholder="退款原因" value="没有发货" required>
         <button class="btn btn-lg btn-primary btn-block" type="submit">提交</button>
     </form>
 
-</div> <!-- /container -->
-
-
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+</div>
+ <!-- /container -->
 
 </body>
 </html>
