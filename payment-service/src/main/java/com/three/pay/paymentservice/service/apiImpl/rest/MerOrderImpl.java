@@ -67,10 +67,10 @@ public class MerOrderImpl implements ITradeProcess {
             merPaySeqPos.add(merPaySeqPo);
             merOrderQueryPo.setOrderList(merPaySeqPos);
             //数据校验是否已存在
-            PayOrderDetail oldPayOrderDetail= iOrderCenter.queryOrder(merOrderQueryPo);
+           /* PayOrderDetail oldPayOrderDetail= iOrderCenter.queryOrder(merOrderQueryPo);
             if(oldPayOrderDetail!=null){
                 throw new BusinessException(ResultCode.COMMON_DATA_EXISTS);
-            }
+            }*/
             //2.选择渠道路由
             MerChannelInfo merChannelInfo =iChannelRouteCenter.switchChannelRoute(commonReqVo.getMerNo(), merOrderPo.getProductNo());
             //3.记录数据，生成订单号

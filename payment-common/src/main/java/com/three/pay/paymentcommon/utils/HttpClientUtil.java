@@ -49,7 +49,7 @@ public class HttpClientUtil {
     private static final Logger logger= LoggerFactory.getLogger(HttpClientUtil.class);
     private static PoolingHttpClientConnectionManager connMgr;
     private static RequestConfig requestConfig;
-    private static final int MAX_TIMEOUT = 5000;//默认五秒超时
+    private static final int MAX_TIMEOUT =10000;//默认十秒超时
 
     static {
         // 设置连接池
