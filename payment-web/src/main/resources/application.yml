@@ -31,9 +31,9 @@ spring:
           paths: /**
 #http config
 httpConfig:
-  connectionRequestTimeout: 3000
-  connectTimeout: 3000
-  socketTimeout: 5000
+  connectionRequestTimeout: 10000
+  connectTimeout: 10000
+  socketTimeout: 10000
 server:
   port: 9006
 gateway:
