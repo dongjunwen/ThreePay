@@ -12,4 +12,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface PayRefundDetailRep extends JpaRepository<PayRefundDetail,Long> {
 
     PayRefundDetail findByRefundSeqNo(String refundSeqNo);
+
+    PayRefundDetail findByTradeNo(String tradeNo);
 }

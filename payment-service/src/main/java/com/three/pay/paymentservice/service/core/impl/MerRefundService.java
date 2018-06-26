@@ -23,4 +23,9 @@ public class MerRefundService implements IMerRefund {
     public List<MerRefundOrder> queryOrder(MerPaySeqPo merPaySeqPo) {
         return merRefundOrderRep.findByMerOrderNoAndMerPaySeq(merPaySeqPo.getMerOrderNo(),merPaySeqPo.getMerPaySeq());
     }
+
+    @Override
+    public MerRefundOrder findByRefundNo(String refundNo) {
+        return merRefundOrderRep.findByRefundNo(refundNo);
+    }
 }

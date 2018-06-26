@@ -23,4 +23,6 @@ public interface MerRefundOrderRep extends JpaRepository<MerRefundOrder,Long> {
     @Modifying
     @Query("update MerRefundOrder u set u.refundStatus = ?1,u.modiTime=?2 where u.tradeNo = ?3")
     void updateByTradeNo(long refundStatus, Timestamp modiTime, String tradeNo);
+
+    MerRefundOrder findByRefundNo(String refundNo);
 }

@@ -9,9 +9,8 @@ import com.three.pay.paymentapi.result.PayResult;
 import com.three.pay.paymentapi.vo.CommonReqParam;
 import com.three.pay.paymentchannel.param.ChannelRespParam;
 import com.three.pay.paymentcommon.dto.MerChannelInfo;
-import com.three.pay.paymentcommon.po.MerUnionOrderPo;
 import com.three.pay.paymentcommon.po.MerOrderQueryPo;
-import com.three.pay.paymentjdbc.entity.PayOrderDetail;
+import com.three.pay.paymentcommon.po.MerUnionOrderPo;
 import com.three.pay.paymentservice.service.channel.IChannelService;
 import com.three.pay.paymentservice.service.core.IChannelRouteCenter;
 import com.three.pay.paymentservice.service.core.IOrderCenter;
@@ -58,10 +57,10 @@ public class MerUnionOrderImpl implements ITradeProcess {
             MerOrderQueryPo merOrderQueryPo=new MerOrderQueryPo();
             merOrderQueryPo.setOrderList(merUnionOrderPo.getOrderList());
             //数据校验是否已存在
-            PayOrderDetail oldPayOrderDetail= iOrderCenter.queryOrder(merOrderQueryPo);
+           /* PayOrderDetail oldPayOrderDetail= iOrderCenter.queryOrder(merOrderQueryPo);
             if(oldPayOrderDetail!=null){
                 throw new BusinessException(ResultCode.COMMON_DATA_EXISTS);
-            }
+            }*/
             //2.选择渠道路由
             MerChannelInfo merChannelInfo =iChannelRouteCenter.switchChannelRoute(commonReqVo.getMerNo(), merUnionOrderPo.getProductNo());
             //3.记录数据，生成订单号

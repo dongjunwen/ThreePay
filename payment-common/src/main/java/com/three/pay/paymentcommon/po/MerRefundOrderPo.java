@@ -19,6 +19,10 @@ import javax.validation.constraints.NotBlank;
 @Setter
 @ToString
 public class MerRefundOrderPo {
+    @NotBlank(message = "商户退款单号不能为空")
+    @Length(min = 1,max = 64,message = "商户退款单号不能超过64")
+    @ApiModelProperty(value = "商户退款单号",required =true )
+    private String refundNo;
     @NotBlank(message = "商户支付流水号不能为空")
     @Length(min = 1,max = 64,message = "商户支付流水号不能超过64")
     @ApiModelProperty(value = "商户支付流水号",required =true )

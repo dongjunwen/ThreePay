@@ -14,6 +14,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class RefundForm {
+    private String refundNo;
+    private String merOrderNo;
     private String merPaySeq;
     private String refundAmt;
     private String refundDesc;

@@ -47,7 +47,7 @@ public class RefundCenterService implements IRefundCenter {
         MerRefundOrder merRefundOrder=new MerRefundOrder();
         merRefundOrder.setMerNo(merChannelInfo.getMerNo());
         merRefundOrder.setMerName(merChannelInfo.getMerName());
-        String refundNo= IDUtils.genIdStr("R");
+        String refundNo=merRefundOrderPo.getRefundNo();
         merRefundOrder.setRefundNo(refundNo);
         merRefundOrder.setTradeNo(tradeNo);
         merRefundOrder.setMerOrderNo(merRefundOrderPo.getMerOrderNo());

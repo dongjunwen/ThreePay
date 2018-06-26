@@ -13,4 +13,6 @@ import java.util.List;
  **/
 public interface IMerRefund {
     List<MerRefundOrder> queryOrder(MerPaySeqPo merPaySeqPo);
+
+    MerRefundOrder findByRefundNo(String refundNo);
 }
