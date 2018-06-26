@@ -1,6 +1,5 @@
 package com.three.pay.paymentservice.service.core.impl;
 
-import com.three.pay.paymentjdbc.entity.PayOrderDetail;
 import com.three.pay.paymentjdbc.entity.PayRefundDetail;
 import com.three.pay.paymentjdbc.respository.PayRefundDetailRep;
 import com.three.pay.paymentservice.service.core.IPayRefundDetail;

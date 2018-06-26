@@ -70,14 +70,15 @@ public class MerRefundQueryImpl implements ITradeProcess {
             if(merRefundOrder==null){
                 throw new BusinessException(ResultCode.COMMON_DATA_NOT_EXISTS);
             }
-            MerPaySeqPo merPaySeqPo=new MerPaySeqPo();
-            merPaySeqPo.setMerOrderNo(merRefundOrder.getMerOrderNo());
-            merPaySeqPo.setMerPaySeq(merRefundOrder.getMerPaySeq());
-            MerOrder merOrder=iMerOrder.queryOrder(merPaySeqPo);
-            PayOrderDetail payOrderDetail=iPayOrderDetail.findByTradeNo(merOrder.getTradeNo());
+
             String respJson= JSONObject.toJSONString(merRefundOrder);
             if(RefundStatusEnum.REFUND_INIT.getCode()==merRefundOrder.getRefundStatus()){
                 //4.执行渠道层动作
+                MerPaySeqPo merPaySeqPo=new MerPaySeqPo();
+                merPaySeqPo.setMerOrderNo(merRefundOrder.getMerOrderNo());
+                merPaySeqPo.setMerPaySeq(merRefundOrder.getMerPaySeq());
+                MerOrder merOrder=iMerOrder.queryOrder(merPaySeqPo);
+                PayOrderDetail payOrderDetail=iPayOrderDetail.findByTradeNo(merOrder.getTradeNo());
                 MerChannelInfo merChannelInfo =iChannelRouteCenter.buildMerChannelInfo(payOrderDetail, ChannelActionEnum.REFUND_QUERY);
                 PayRefundDetail oldPayRefundDetail=iPayRefundDetail.findByTradeNo(merRefundOrder.getTradeNo());
                 merChannelInfo.setInnerRefundSeqNo(oldPayRefundDetail.getRefundSeqNo());
