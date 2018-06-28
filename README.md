@@ -1,14 +1,12 @@
 # ThreePay 三人行支付系统
-##一、代码结构
-	| 模块名称         | 描述                                         |
-	| :-------------- | : ---------------------------------------- :   |
-    | payment-common  | 公共依赖包                                     |
-    | payment-jdbc    | 数据库连接包                                   |
-    | payment-channel | 和第三方通道打交道的依赖包                       |
-    | payment-service | 核心业务依赖包                                 |
-    | payment-api     | 核心业务对外暴露api公共包，为拆分为rpc项目做准备    |
-    | payment-rest    | 对外暴露统一http接口可运行项目jar包             |
-    | payment-web     | 主要是演示页面                                | 
+##一、代码结构	
+    *  payment-common    |   公共依赖包                                   
+    *  payment-jdbc           |   数据库连接包                                  
+    *  payment-channel     |   和第三方通道打交道的依赖包                      
+    *  payment-service      |   核心业务依赖包                                
+    *  payment-api            |   核心业务对外暴露api公共包，为拆分为rpc项目做准备  
+    *  payment-rest           |   对外暴露统一http接口可运行项目jar包           
+    *  payment-web          |   主要是演示页面                              
    
 ##二、打包命令
 * 进入 payment-rest 目录
