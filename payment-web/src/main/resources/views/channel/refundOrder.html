@@ -27,6 +27,8 @@
 <div class="container">
     <form class="form-signin" action="/channel/refundCreate" method="post" target="_blank">
         <h2 class="form-signin-heading">输入退款信息并提交</h2>
+        <label for="refundNo" class="sr-only">退款单号</label>
+        <input type="text" id="refundNo" name="refundNo" class="form-control" placeholder="退款单号" th:value="${refundNo}" required autofocus>
         <label for="merPaySeq" class="sr-only">支付流水号</label>
         <input type="text" id="merPaySeq" name="merPaySeq" class="form-control" placeholder="支付流水号" value="" required autofocus>
         <label for="refundAmt" class="sr-only">退款金额</label>

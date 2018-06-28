@@ -43,7 +43,7 @@ public class ChannelController {
         return modelAndView;
     }
 
-    @RequestMapping("/orderQuery")
+    @RequestMapping("/queryOrder")
     public ModelAndView orderList(ModelMap modelMap){
         ModelAndView modelAndView=new ModelAndView();
         modelAndView.setViewName("channel/orderQuery");
@@ -53,6 +53,8 @@ public class ChannelController {
     @RequestMapping("/refundOrder")
     public ModelAndView refundOrder(ModelMap modelMap){
         ModelAndView modelAndView=new ModelAndView();
+        String refundNo= IDUtils.nextIdStr();
+        modelMap.put("refundNo",refundNo);
         modelAndView.setViewName("channel/refundOrder");
         return modelAndView;
     }

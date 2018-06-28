@@ -48,6 +48,7 @@ public class RefundController {
         commonReqParam.setVersion("1.0");
 
         MerRefundOrderPo merRefundOrderPo =new MerRefundOrderPo();
+        merRefundOrderPo.setRefundNo(refundForm.getRefundNo());
         merRefundOrderPo.setMerOrderNo(refundForm.getMerPaySeq());
         merRefundOrderPo.setMerPaySeq(refundForm.getMerPaySeq());
         merRefundOrderPo.setRefundAmt(refundForm.getRefundAmt());

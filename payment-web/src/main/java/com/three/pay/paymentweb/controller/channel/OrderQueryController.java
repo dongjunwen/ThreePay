@@ -2,8 +2,8 @@ package com.three.pay.paymentweb.controller.channel;
 
 import com.alibaba.fastjson.JSONObject;
 import com.three.pay.paymentapi.vo.CommonReqParam;
-import com.three.pay.paymentcommon.po.MerUnionOrderPo;
 import com.three.pay.paymentcommon.po.MerPaySeqPo;
+import com.three.pay.paymentcommon.po.MerUnionOrderPo;
 import com.three.pay.paymentcommon.utils.DateUtil;
 import com.three.pay.paymentcommon.utils.HttpClientUtil;
 import com.three.pay.paymentcommon.utils.MD5Util;
@@ -13,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,7 +33,7 @@ public class OrderQueryController {
     private static final Logger logger= LoggerFactory.getLogger(OrderQueryController.class);
     private static final String payUrl="http://localhost:9005/api/trade";
 
-    @RequestMapping(value = "/orderQuery",method = RequestMethod.POST)
+    @RequestMapping(value = "/orderQuery")
     public ModelAndView createOrder(OrderForm orderForm,
                                     HttpServletRequest request,
                                     HttpServletResponse response){
