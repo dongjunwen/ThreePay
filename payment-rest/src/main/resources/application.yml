@@ -46,8 +46,8 @@ server:
   port: 9005
 gateway:
   alipay:
-    #url: https://openapi.alipaydev.com/gateway.do
-    url: https://openapi.alipay.com/gateway.do
+    url: https://openapi.alipaydev.com/gateway.do
+    #url: https://openapi.alipay.com/gateway.do
 three:
   pay:
    notifyUrl: http://111.231.141.23:9005/AlipayNotify/pagePay

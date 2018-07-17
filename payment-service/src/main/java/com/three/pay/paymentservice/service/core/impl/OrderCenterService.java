@@ -1,15 +1,17 @@
 package com.three.pay.paymentservice.service.core.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.three.pay.paymentapi.vo.CommonReqParam;
 import com.three.pay.paymentcommon.dto.MerChannelInfo;
 import com.three.pay.paymentcommon.enums.PayStatusEnum;
 import com.three.pay.paymentcommon.enums.TradeStatusEnum;
 import com.three.pay.paymentcommon.enums.TradeTypeEnum;
-import com.three.pay.paymentcommon.po.MerUnionOrderPo;
 import com.three.pay.paymentcommon.po.MerOrderQueryPo;
 import com.three.pay.paymentcommon.po.MerPaySeqPo;
+import com.three.pay.paymentcommon.po.MerUnionOrderPo;
 import com.three.pay.paymentcommon.po.notify.NotifyPayParamPo;
 import com.three.pay.paymentcommon.utils.DateUtil;
+import com.three.pay.paymentcommon.utils.HttpClientUtil;
 import com.three.pay.paymentcommon.utils.IDUtils;
 import com.three.pay.paymentjdbc.entity.MerOrder;
 import com.three.pay.paymentjdbc.entity.PayOrderDetail;
@@ -30,6 +32,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * @Author:luiz
@@ -48,7 +52,8 @@ public class OrderCenterService implements IOrderCenter {
     PayTradeTotalRep payTradeTotalRep;
     @Autowired
     PayOrderDetailRep payOrderDetailRep;
-
+    //创建固定线程池 可根据应用及机器实际情况进行调整
+    ExecutorService executorService= Executors.newFixedThreadPool(1);
     @Override
     @Transactional
     public void createOrder(MerChannelInfo merChannelInfo, CommonReqParam commonReqVo, MerUnionOrderPo merUnionOrderPo) {
@@ -78,6 +83,8 @@ public class OrderCenterService implements IOrderCenter {
             merOrder.setResv2(merUnionOrderPo.getResv2());
             merOrder.setResv3(merUnionOrderPo.getResv3());
             merOrder.setTradeNo(tradeNo);
+            merOrder.setNotifyUrl(commonReqVo.getNotifyUrl());
+            merOrder.setForwardUrl(commonReqVo.getForwardUrl());
             tradeAmt=tradeAmt.add(new BigDecimal(merUnionOrderPo.getPayAmt()));
             merOrder.setCreateTime(new java.sql.Timestamp(nowDate.getTime()));
             merOrder.setModiTime(new java.sql.Timestamp(nowDate.getTime()));
@@ -208,6 +215,49 @@ public class OrderCenterService implements IOrderCenter {
         merOrder.setPayStatus(notifyPayParamPo.getTradeStatus());
         merOrder.setModiTime(new java.sql.Timestamp(nowDate.getTime()));
         merOrderRep.updateByTradeNo(merOrder.getPayStatus(),merOrder.getModiTime(),merOrder.getTradeNo());
+
+        //通知给订单系统
+        executorService.submit(new Runnable() {
+            @Override
+            public void run() {
+                notifyOrderSystem(oldPayOrderDetail.getTradeNo());
+            }
+        });
+    }
+
+    /**
+     * 异步通知订单系统结果
+     * @param tradeNo
+     */
+    private void notifyOrderSystem(String tradeNo) {
+       List<MerOrder> merOrders = merOrderRep.findByTradeNo(tradeNo);
+       for(MerOrder merOrder:merOrders){
+           JSONObject notifyParam=new JSONObject();
+           notifyParam.put("orderNo",merOrder.getMerOrderNo());
+           notifyParam.put("paySeqNo",merOrder.getMerPaySeq());
+           notifyParam.put("respCode","00");
+           notifyParam.put("respMsg","成功");
+           notifyParam.put("payTradeNo",merOrder.getTradeNo());
+           if(PayStatusEnum.PAY_SUCCESS.getCode()==merOrder.getPayStatus()){
+               notifyParam.put("payResult","PAY_SUCCESS");//成功
+           }else{
+               notifyParam.put("payResult","PAY_FAIL");//失败
+           }
+           notifyParam.put("paySuccessTime",merOrder.getModiTime());
+           notifyParam.put("signValue",merOrder.getMerOrderNo());
+           logger.info("[通知订单系统]通知参数:{}",notifyParam);
+           String respMsg=HttpClientUtil.doPost(merOrder.getNotifyUrl(),notifyParam);
+           if("00".equals(respMsg)){
+               merOrder.setNotifyStatus(1);
+           }else{
+               merOrder.setNotifyStatus(0);
+           }
+           merOrder.setModiTime(new java.sql.Timestamp(new Date().getTime()));
+           merOrder.setNotifyNum(merOrder.getNotifyNum()+1);
+           merOrder.setNotifyMsg(respMsg);
+           merOrderRep.updateByTradeNo(merOrder.getPayStatus(),merOrder.getModiTime(),merOrder.getTradeNo());
+       }
+
     }
 
     @Override

@@ -14,4 +14,6 @@ public interface IProductChannelRoute {
     List<ProductChannelRoute> findAvailable();
 
     ProductChannelRoute findByMerNoAndPayWay(String merNo, String payWay);
+
+    List<ProductChannelRoute> findByMerNoAndProductNo(String merNo, String productNo);
 }

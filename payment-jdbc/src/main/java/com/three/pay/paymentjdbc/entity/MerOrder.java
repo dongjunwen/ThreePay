@@ -55,6 +55,16 @@ public class MerOrder {
   private java.sql.Timestamp createTime;
   @Column(name = "modi_time")
   private java.sql.Timestamp modiTime;
+  @Column(name = "notify_url")
+  private String notifyUrl;
+  @Column(name = "forward_url")
+  private String forwardUrl;
+  @Column(name = "notify_status")
+  private int notifyStatus;
+  @Column(name = "notify_num")
+  private int notifyNum;
+  @Column(name = "notify_msg")
+  private String notifyMsg;
 
     public long getId() {
         return id;
@@ -246,5 +256,45 @@ public class MerOrder {
 
     public void setEquipNo(String equipNo) {
         this.equipNo = equipNo;
+    }
+
+    public String getNotifyUrl() {
+        return notifyUrl;
+    }
+
+    public void setNotifyUrl(String notifyUrl) {
+        this.notifyUrl = notifyUrl;
+    }
+
+    public String getForwardUrl() {
+        return forwardUrl;
+    }
+
+    public void setForwardUrl(String forwardUrl) {
+        this.forwardUrl = forwardUrl;
+    }
+
+    public int getNotifyStatus() {
+        return notifyStatus;
+    }
+
+    public void setNotifyStatus(int notifyStatus) {
+        this.notifyStatus = notifyStatus;
+    }
+
+    public int getNotifyNum() {
+        return notifyNum;
+    }
+
+    public void setNotifyNum(int notifyNum) {
+        this.notifyNum = notifyNum;
+    }
+
+    public String getNotifyMsg() {
+        return notifyMsg;
+    }
+
+    public void setNotifyMsg(String notifyMsg) {
+        this.notifyMsg = notifyMsg;
     }
 }

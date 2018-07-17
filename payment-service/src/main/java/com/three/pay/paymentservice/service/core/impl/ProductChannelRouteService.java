@@ -31,4 +31,9 @@ public class ProductChannelRouteService implements IProductChannelRoute {
     public ProductChannelRoute findByMerNoAndPayWay(String merNo, String payWay) {
         return productChannelRep.findByMerNoAndPayWay(merNo,payWay);
     }
+
+    @Override
+    public List<ProductChannelRoute> findByMerNoAndProductNo(String merNo, String productNo) {
+        return productChannelRep.findByMerNoAndProductNo(merNo,productNo);
+    }
 }

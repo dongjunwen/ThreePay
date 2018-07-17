@@ -63,7 +63,7 @@ public class ChannelRouteCenterService implements IChannelRouteCenter {
 
 
         //校验产品对应的渠道是否有效
-        List<ProductChannelRoute> productChannelRouteList= iProductChannelRoute.findAvailable();
+        List<ProductChannelRoute> productChannelRouteList= iProductChannelRoute.findByMerNoAndProductNo(merNo,productNo);
         if(productChannelRouteList==null || productChannelRouteList.size()<=0){
             throw new BusinessException(ResultCode.PRODUCT_CHANNEL_NOT_EXISTS);
         }

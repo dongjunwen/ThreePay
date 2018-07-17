@@ -26,4 +26,6 @@ public interface MerOrderRep extends JpaRepository<MerOrder,Long> {
 
     @Query(value = "select * from mer_order  where mer_order.pay_no in(:payNos) ",nativeQuery = true)
     List<MerOrder> findByPayNos(@Param("payNos") List<String> payNos);
+
+    List<MerOrder> findByTradeNo(String tradeNo);
 }
