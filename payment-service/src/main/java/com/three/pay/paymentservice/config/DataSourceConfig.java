@@ -11,7 +11,7 @@ import com.alibaba.druid.pool.DruidDataSource;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -27,29 +27,46 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 
 @Configuration
-@ConfigurationProperties(prefix = "spring.datasource")
 @EnableTransactionManagement(proxyTargetClass = true)
 //开启Spring Data JPA的支持
 @EnableJpaRepositories(basePackages = "com.three.pay.paymentjdbc", entityManagerFactoryRef = "entityManagerFactory", transactionManagerRef = "transactionManager")
 public class DataSourceConfig {
     Logger logger= LoggerFactory.getLogger(DataSourceConfig.class);
+    @Value("${spring.datasource.url}")
     private String url;
+    @Value("${spring.datasource.userName}")
     private String userName;
+    @Value("${spring.datasource.passWord}")
     private String passWord;
+    @Value("${spring.datasource.driverClassName}")
     private String driverClassName;
+    @Value("${spring.datasource.initialSize}")
     private int initialSize;
+    @Value("${spring.datasource.minIdle}")
     private int minIdle;
+    @Value("${spring.datasource.maxActive}")
     private int maxActive;
+    @Value("${spring.datasource.maxWait}")
     private int maxWait;
+    @Value("${spring.datasource.timeBetweenEvictionRunsMillis}")
     private int timeBetweenEvictionRunsMillis;
+    @Value("${spring.datasource.minEvictableIdleTimeMillis}")
     private int minEvictableIdleTimeMillis;
+    @Value("${spring.datasource.validationQuery}")
     private String validationQuery;
+    @Value("${spring.datasource.testWhileIdle}")
     private boolean testWhileIdle;
+    @Value("${spring.datasource.testOnBorrow}")
     private boolean testOnBorrow;
+    @Value("${spring.datasource.testOnReturn}")
     private boolean testOnReturn;
+    @Value("${spring.datasource.poolPreparedStatements}")
     private boolean poolPreparedStatements;
+    @Value("${spring.datasource.maxPoolPreparedStatementPerConnectionSize}")
     private int maxPoolPreparedStatementPerConnectionSize;
+    @Value("${spring.datasource.filters}")
     private String filters;
+    @Value("${spring.datasource.connectionProperties}")
     private String connectionProperties;
 
 
