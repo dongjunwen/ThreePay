@@ -1,5 +1,6 @@
 package com.three.pay.paymentcommon.utils;
 
+import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Maps;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.*;
@@ -127,8 +128,8 @@ public class HttpClientUtil {
      * @param apiUrl
      * @return
      */
-    public static String doPost(String apiUrl) {
-        return doPost(apiUrl, new HashMap<String, Object>());
+    public static String doPost(String apiUrl,String jsonStr) {
+        return doPost(apiUrl, JSONObject.parseObject(jsonStr));
     }
 
     /**
@@ -194,11 +195,11 @@ public class HttpClientUtil {
             httpPost.setEntity(stringEntity);
             logger.info("[http工具类]请求地址:{}请求参数:{}",apiUrl,reqParams);
             response = httpClient.execute(httpPost);
-            if(302==response.getStatusLine().getStatusCode()){
+            /*if(302==response.getStatusLine().getStatusCode()){
                 Header header = response.getFirstHeader("location"); // 跳转的目标地址是在 HTTP-HEAD 中的
                 String newUri = header.getValue(); // 这就是跳转后的地址，再向这个地址发出新申请，以便得到跳转后的信息是啥。
                 return doPost(newUri,reqParams);
-            }
+            }*/
             HttpEntity entity = response.getEntity();
             httpStr = EntityUtils.toString(entity, "UTF-8");
             logger.info("[http工具类]响应内容:{}",httpStr);
@@ -222,7 +223,7 @@ public class HttpClientUtil {
      * @param json json对象
      * @return
      */
-    public static String doPost(String apiUrl, Object json) {
+    public static String doPost(String apiUrl, JSONObject json) {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         String httpStr = null;
         HttpPost httpPost = new HttpPost(apiUrl);
