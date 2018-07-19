@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,7 +22,7 @@ public interface MerOrderRep extends JpaRepository<MerOrder,Long> {
     @Transactional
     @Modifying
     @Query("update MerOrder u set u.payStatus = ?1,u.modiTime=?2 where u.tradeNo = ?3")
-    void updateByTradeNo(long payStatus, Timestamp modiTime,String tradeNo);
+    void updateByTradeNo(long payStatus, Date modiTime, String tradeNo);
 
     @Query(value = "select * from mer_order  where mer_order.pay_no in(:payNos) ",nativeQuery = true)
     List<MerOrder> findByPayNos(@Param("payNos") List<String> payNos);

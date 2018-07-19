@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 @Component
@@ -16,7 +16,7 @@ public class MerOrder {
   @Column(name = "pay_no")
   private String payNo;
   @Column(name = "pay_time")
-  private java.sql.Timestamp payTime;
+  private Date payTime;
   @Column(name = "trade_no")
   private String tradeNo;
   @Column(name = "mer_no")
@@ -52,9 +52,9 @@ public class MerOrder {
   private String resv3;
   private long version;
   @Column(name = "create_time")
-  private java.sql.Timestamp createTime;
+  private Date createTime;
   @Column(name = "modi_time")
-  private java.sql.Timestamp modiTime;
+  private Date modiTime;
   @Column(name = "notify_url")
   private String notifyUrl;
   @Column(name = "forward_url")
@@ -82,11 +82,11 @@ public class MerOrder {
         this.payNo = payNo;
     }
 
-    public Timestamp getPayTime() {
+    public Date getPayTime() {
         return payTime;
     }
 
-    public void setPayTime(Timestamp payTime) {
+    public void setPayTime(Date payTime) {
         this.payTime = payTime;
     }
 
@@ -186,19 +186,19 @@ public class MerOrder {
         this.version = version;
     }
 
-    public Timestamp getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Timestamp createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
-    public Timestamp getModiTime() {
+    public Date getModiTime() {
         return modiTime;
     }
 
-    public void setModiTime(Timestamp modiTime) {
+    public void setModiTime(Date modiTime) {
         this.modiTime = modiTime;
     }
 

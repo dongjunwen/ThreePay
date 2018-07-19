@@ -243,7 +243,7 @@ public class OrderCenterService implements IOrderCenter {
            }else{
                notifyParam.put("payResult","PAY_FAIL");//失败
            }
-           notifyParam.put("paySuccessTime",merOrder.getModiTime());
+           notifyParam.put("paySuccessTime",DateUtil.getDateFormat(merOrder.getModiTime(),"yyyy-MM-dd HH:mm:ss"));
            notifyParam.put("signValue",merOrder.getMerOrderNo());
            logger.info("[通知订单系统]通知参数:{}",notifyParam);
            String respMsg=HttpClientUtil.doPost(merOrder.getNotifyUrl(),notifyParam);
