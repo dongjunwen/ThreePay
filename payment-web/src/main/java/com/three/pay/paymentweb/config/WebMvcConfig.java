@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.*;
  * Created by Administrator on 2017/8/1.
  */
 @Configuration
-public class WebMvcConfig extends WebMvcConfigurerAdapter {
+public class WebMvcConfig implements WebMvcConfigurer {
     /**
      * 重写父类的方法,配置需要拦截的请求
      * @param registry
@@ -29,7 +29,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         //将所有/static/** 访问都映射到classpath:/static/ 目录下
-       // registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
     }
 
     private CorsConfiguration buildConfig() {
@@ -49,9 +49,9 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        //registry.addViewController("/").setViewName("forward:swagger/index.html");
+        registry.addViewController("/").setViewName("forward:swagger/index.html");
    //     registry.addViewController("/").setViewName("forward:loginIndex");
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
-        super.addViewControllers(registry);
+        //registry.addViewController(registry);
     }
 }

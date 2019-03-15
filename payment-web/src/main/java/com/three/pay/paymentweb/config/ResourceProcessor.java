@@ -9,7 +9,6 @@ import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +20,7 @@ import java.util.Properties;
  * @Descripton:
  * @Modify :
  **/
-@Component
+//@Component
 public class ResourceProcessor implements EnvironmentPostProcessor {
     private static final Logger logger= LoggerFactory.getLogger(ResourceProcessor.class);
     private static final String LOCATION = "/home/soft/payment/config/web/";

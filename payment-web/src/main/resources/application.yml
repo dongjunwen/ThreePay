@@ -1,12 +1,10 @@
 spring:
-  profiles:
-    active: product
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
+    driverClassName: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/threepay_db?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
-    username: admin
+    userName: admin
     #password: root
-    password: admin_!@#123QWE
+    passWord: admin_!@#123QWE
     # 下面为连接池的补充设置，应用到上面所有数据源中
     # 初始化大小，最小，最大
     initialSize: 1
@@ -59,7 +57,7 @@ httpConfig:
   connectTimeout: 30000
   socketTimeout: 30000
 server:
-  port: 9006
+  port: 9001
 gateway:
   alipay:
     url: https://openapi.alipaydev.com/gateway.do
@@ -67,3 +65,7 @@ three:
   pay:
    notifyUrl: http://111.231.141.23:9005/AlipayNotify/pagePay
    forwardUrl: http://111.231.141.23:9006/channel/successForward
+logging:
+  level:
+    root: info
+    com.three.pay: debug
