@@ -11,4 +11,4 @@ after_success:
 ## 加密后的token字串
 env:
   global:
-    - secure: "..............................."
+    - secure: j0tp2Aw/X5yZG3XsXCi8ORmysoAajsLT7L/uHZvBbBD5LAD00/Ql1fNkxyFlJoUcX/sYa8Gs8PqVl/HRV3iYmPAYvEMr7SJS3kt/N3HM3UtzlWrBrYKdo0i/VhWZ0GzefdTefXt2dD0cCRWIx5EzoJZo9zaNfLHSupr6ob85BK47XkSnrEYivRWLXodbNwzIMG5IXhExM1Y7QQYOeLK4kRXZm/Ct/RP6wXl5jqoqKByQf5AYia29374AgWkEF2BQxolmZrHn+Lsees8Pq3k+ljtrq5rQEUzGgTi2C0LJxl3nnua3uI+DqlrCA7nq4g/U+OLOf7zpvyOiZ9bnuj8L4fSg7W94Yp38FqdiNsrjG43uVX+aRXcoxR9EZ+0cP2f+UVj8VKuQ3Kv3+9uA526aQly+BEggBF1pxkpMz7GxD/o6PjP4X+ThxPLX6xvvyblBUrodwYzSr3WLu7WLJC+RIc3VcX6AbO1J1CLueSsjscxqXjwo+ity9Fyjlu12UbaVEfH5BcVt01azo0bvH+LYP7eXnoBvtOqH7HPORo7SckC9SFW0y8bCHcYHA+dS4ut+GGDpqNJFqy+fmpOic5sRoAd5U5PfyIzTYmcD9iVvOtuNWVjHxqd82xq74Esjqo4TvtNc7xXkeXCpKPNWFEnBCufh4H8LqAlfoDxewETtfZM=
