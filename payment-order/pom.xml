@@ -4,11 +4,10 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.three.pay</groupId>
-	<artifactId>payment-web</artifactId>
+	<artifactId>payment-order</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
-
-	<name>payment-web</name>
+	<name>payment-order</name>
 	<description>三人行支付</description>
 
 	<parent>
@@ -44,12 +43,12 @@
 		<dependency>
 			<groupId>com.three.pay</groupId>
 			<artifactId>payment-common</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.three.pay</groupId>
 			<artifactId>payment-service</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
 
 	</dependencies>

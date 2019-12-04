@@ -36,22 +36,22 @@
         <dependency>
             <groupId>com.three.pay</groupId>
             <artifactId>payment-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
+			<version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.three.pay</groupId>
             <artifactId>payment-api</artifactId>
-            <version>1.0-SNAPSHOT</version>
+			<version>${project.version}</version>
         </dependency>
 		<dependency>
 			<groupId>com.three.pay</groupId>
 			<artifactId>payment-jdbc</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
         <dependency>
             <groupId>com.three.pay</groupId>
             <artifactId>payment-channel</artifactId>
-            <version>1.0-SNAPSHOT</version>
+			<version>${project.version}</version>
         </dependency>
 
 		<!-- https://mvnrepository.com/artifact/log4j/log4j -->
