@@ -6,9 +6,9 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan("com.three.pay")
-public class PaymentWebApplication {
+public class ThreeOrderApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PaymentWebApplication.class, args);
+		SpringApplication.run(ThreeOrderApplication.class, args);
 	}
 }

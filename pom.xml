@@ -25,7 +25,7 @@
       <module>payment-jdbc</module>
       <module>payment-channel</module>
       <module>payment-service</module>
-      <module>payment-web</module>
+      <module>payment-order</module>
       <module>payment-rest</module>
   </modules>
 
