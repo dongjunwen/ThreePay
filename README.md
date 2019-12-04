@@ -1,5 +1,9 @@
 # ThreePay 三人行支付系统
-
+```
+支付模块
+https://travis-ci.org/
+https://coveralls.io/
+```
 
 ## 代码结构	
  模块代码 | 模块名称 | 备注
