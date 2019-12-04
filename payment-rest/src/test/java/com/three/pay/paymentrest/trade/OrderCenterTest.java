@@ -1,8 +1,9 @@
 package com.three.pay.paymentrest.trade;
 
+import com.alibaba.fastjson.JSON;
 import com.three.pay.paymentcommon.po.notify.NotifyPayParamPo;
 import com.three.pay.paymentservice.service.core.IOrderCenter;
-import org.junit.Ignore;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,11 @@ import java.util.Date;
  **/
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Slf4j
 public class OrderCenterTest {
     @Autowired
     IOrderCenter iOrderCenter;
     @Test
-    @Ignore
     public void orderNotify(){
         NotifyPayParamPo notifyPayParamPo=new NotifyPayParamPo();
         notifyPayParamPo.setPaySeqNo("S1001750103561601024");
@@ -34,6 +35,7 @@ public class OrderCenterTest {
         notifyPayParamPo.setThirdCreateTime(new Date());
         notifyPayParamPo.setThirdPayTime(new Date());
         notifyPayParamPo.setThirdTradeNo("9999999998");
-        iOrderCenter.notifyOrder(notifyPayParamPo);
+        log.info(JSON.toJSONString(notifyPayParamPo));
+        //iOrderCenter.notifyOrder(notifyPayParamPo);
     }
 }
