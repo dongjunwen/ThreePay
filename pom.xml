@@ -34,7 +34,6 @@
   </properties>
 
   <dependencies>
-
       <dependency>
           <groupId>org.hibernate.validator</groupId>
           <artifactId>hibernate-validator</artifactId>
@@ -42,26 +41,26 @@
       <dependency>
           <groupId>com.alibaba</groupId>
           <artifactId>fastjson</artifactId>
-          <version>1.2.47</version>
+          <version>1.2.62</version>
       </dependency>
       <dependency>
           <groupId>org.apache.commons</groupId>
           <artifactId>commons-lang3</artifactId>
-          <version>3.5</version>
       </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.10</version>
-     <!-- <scope>provided</scope>-->
     </dependency>
+      <dependency>
+          <groupId>javax.xml.bind</groupId>
+          <artifactId>jaxb-api</artifactId>
+      </dependency>
   </dependencies>
 
 
     <build>
         <pluginManagement>
             <plugins>
-
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
@@ -75,7 +74,6 @@
                         </execution>
                     </executions>
                 </plugin>
-
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
@@ -123,9 +121,6 @@
 
             </plugins>
         </pluginManagement>
-
-
-
     </build>
 
 </project>
