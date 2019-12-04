@@ -2,6 +2,7 @@ package com.three.pay.paymentrest.trade;
 
 import com.three.pay.paymentcommon.po.notify.NotifyPayParamPo;
 import com.three.pay.paymentservice.service.core.IOrderCenter;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ public class OrderCenterTest {
     @Autowired
     IOrderCenter iOrderCenter;
     @Test
+    @Ignore
     public void orderNotify(){
         NotifyPayParamPo notifyPayParamPo=new NotifyPayParamPo();
         notifyPayParamPo.setPaySeqNo("S1001750103561601024");
